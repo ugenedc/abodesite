@@ -168,7 +168,7 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-12 max-w-5xl mx-auto">
             {[
               {
-                icon: <Home className="h-7 w-7" />,
+                icon: <Home className="h-7 w-7 text-white" />,
                 title: "For Tenants",
                 description:
                   "Simplified rent payments, maintenance requests, and communication with property managers all in one place.",
@@ -183,7 +183,7 @@ export default function HomePage() {
                 delay: 200,
               },
               {
-                icon: <Building className="h-7 w-7" />,
+                icon: <Building className="h-7 w-7 text-white" />,
                 title: "For Owners",
                 description:
                   "Complete visibility into property performance, tenant management, and financial reporting.",
@@ -198,7 +198,7 @@ export default function HomePage() {
                 delay: 400,
               },
               {
-                icon: <Key className="h-7 w-7" />,
+                icon: <Key className="h-7 w-7 text-white" />,
                 title: "For Agents",
                 description: "Streamlined property listings, client management, and transaction processing tools.",
                 features: ["Listing management", "Client CRM", "Transaction tracking", "Commission reporting"],
@@ -211,7 +211,7 @@ export default function HomePage() {
                 <Card className="border-0 bg-white hover:bg-gray-50/50 transition-all duration-500 rounded-2xl overflow-hidden group shadow-sm hover:shadow-lg">
                   <CardHeader className="pt-10 pb-6">
                     <div
-                      className={`w-14 h-14 bg-gradient-to-br ${solution.accent}/10 rounded-2xl flex items-center justify-center text-gray-600 mb-8 group-hover:scale-105 transition-transform duration-300`}
+                      className={`w-14 h-14 bg-gradient-to-br ${solution.accent} rounded-2xl flex items-center justify-center mb-8 group-hover:scale-105 transition-transform duration-300`}
                     >
                       {solution.icon}
                     </div>
@@ -260,42 +260,42 @@ export default function HomePage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {[
               {
-                icon: <Users className="h-6 w-6" />,
+                icon: <Users className="h-6 w-6 text-white" />,
                 title: "Tenant Management",
                 description: "Comprehensive tenant profiles, screening, and communication tools.",
                 accent: "from-purple-400 to-purple-500",
                 delay: 100,
               },
               {
-                icon: <Building className="h-6 w-6" />,
+                icon: <Building className="h-6 w-6 text-white" />,
                 title: "Property Portfolio",
                 description: "Organize and track all properties with detailed information and analytics.",
                 accent: "from-purple-500 to-orange-400",
                 delay: 200,
               },
               {
-                icon: <Calendar className="h-6 w-6" />,
+                icon: <Calendar className="h-6 w-6 text-white" />,
                 title: "Rent Collection",
                 description: "Automated rent collection, payment tracking, and financial reporting.",
                 accent: "from-orange-400 to-orange-500",
                 delay: 300,
               },
               {
-                icon: <BarChart3 className="h-6 w-6" />,
+                icon: <BarChart3 className="h-6 w-6 text-white" />,
                 title: "Financial Analytics",
                 description: "Real-time financial insights with customizable reports and forecasting.",
                 accent: "from-purple-400 to-purple-500",
                 delay: 400,
               },
               {
-                icon: <Shield className="h-6 w-6" />,
+                icon: <Shield className="h-6 w-6 text-white" />,
                 title: "Document Security",
                 description: "Secure storage for leases, contracts, and important property documents.",
                 accent: "from-purple-500 to-orange-400",
                 delay: 500,
               },
               {
-                icon: <Key className="h-6 w-6" />,
+                icon: <Key className="h-6 w-6 text-white" />,
                 title: "Listing Management",
                 description: "Create, publish, and manage property listings across multiple platforms.",
                 accent: "from-orange-400 to-orange-500",
@@ -305,7 +305,7 @@ export default function HomePage() {
               <ScrollSection key={index} delay={feature.delay} blurAmount={2} fadeDirection="up">
                 <Card className="border-0 bg-white hover:bg-gray-50/50 transition-all duration-500 rounded-2xl group shadow-sm hover:shadow-md p-8">
                   <div
-                    className={`w-12 h-12 bg-gradient-to-br ${feature.accent}/10 rounded-xl flex items-center justify-center text-gray-600 mb-6 group-hover:scale-105 transition-transform duration-300`}
+                    className={`w-12 h-12 bg-gradient-to-br ${feature.accent} rounded-xl flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-300`}
                   >
                     {feature.icon}
                   </div>
@@ -342,7 +342,7 @@ export default function HomePage() {
             <div className="grid md:grid-cols-3 gap-12 text-center mb-16">
               <ScrollSection delay={200} blurAmount={2} fadeDirection="up">
                 <div className="group">
-                  <div className="w-20 h-20 bg-gradient-to-br from-purple-400/10 to-purple-500/10 rounded-3xl flex items-center justify-center text-purple-500 mx-auto mb-6 group-hover:scale-105 transition-transform duration-300">
+                  <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-purple-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 group-hover:scale-105 transition-transform duration-300">
                     <Home className="h-10 w-10" />
                   </div>
                   <h3 className="text-xl font-light text-gray-900 mb-4">Tenants</h3>
@@ -354,7 +354,7 @@ export default function HomePage() {
 
               <ScrollSection delay={400} blurAmount={2} fadeDirection="up">
                 <div className="group">
-                  <div className="w-20 h-20 bg-gradient-to-br from-purple-500/10 to-orange-400/10 rounded-3xl flex items-center justify-center text-purple-600 mx-auto mb-6 group-hover:scale-105 transition-transform duration-300">
+                  <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-orange-400 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 group-hover:scale-105 transition-transform duration-300">
                     <Building className="h-10 w-10" />
                   </div>
                   <h3 className="text-xl font-light text-gray-900 mb-4">Owners</h3>
@@ -366,7 +366,7 @@ export default function HomePage() {
 
               <ScrollSection delay={600} blurAmount={2} fadeDirection="up">
                 <div className="group">
-                  <div className="w-20 h-20 bg-gradient-to-br from-orange-400/10 to-orange-500/10 rounded-3xl flex items-center justify-center text-orange-500 mx-auto mb-6 group-hover:scale-105 transition-transform duration-300">
+                  <div className="w-20 h-20 bg-gradient-to-br from-orange-400 to-orange-500 rounded-3xl flex items-center justify-center text-white mx-auto mb-6 group-hover:scale-105 transition-transform duration-300">
                     <Key className="h-10 w-10" />
                   </div>
                   <h3 className="text-xl font-light text-gray-900 mb-4">Agents</h3>

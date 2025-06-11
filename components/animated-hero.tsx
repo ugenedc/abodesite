@@ -30,19 +30,19 @@ export default function AnimatedHero() {
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-400 via-orange-400 to-purple-500 animate-gradient-shift"></div>
+      {/* Improved Animated Gradient Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 animate-gradient-shift"></div>
 
-      {/* Subtle moving gradient overlays */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-orange-300/20 via-purple-300/20 to-orange-400/20 animate-gradient-x"></div>
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-purple-300/20 via-orange-300/20 to-purple-400/20 animate-gradient-y"></div>
+      {/* Subtle moving gradient overlays with improved colors */}
+      <div className="absolute inset-0 opacity-40">
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-purple-600/30 via-pink-400/30 to-orange-300/30 animate-gradient-x"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-purple-500/30 via-pink-500/30 to-orange-400/30 animate-gradient-y"></div>
       </div>
 
-      {/* Subtle background elements */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-white/10 to-purple-200/20 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-orange-200/20 to-white/10 rounded-full blur-3xl animate-float-delayed"></div>
+      {/* Subtle background elements with improved colors */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-purple-300/20 to-pink-300/20 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-pink-300/20 to-purple-300/20 rounded-full blur-3xl animate-float-delayed"></div>
       </div>
 
       {/* Content */}
