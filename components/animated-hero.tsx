@@ -14,7 +14,15 @@ export default function AnimatedHero() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (email) {
-      // Here you would typically send to your waitlist API
+      // Create mailto link with the email address
+      const subject = encodeURIComponent("New Waitlist Signup")
+      const body = encodeURIComponent(`New signup for the Abode waitlist: ${email}`)
+      const mailtoLink = `mailto:leon@leonhayes.com.au?subject=${subject}&body=${body}`
+
+      // Open email client
+      window.location.href = mailtoLink
+
+      // Show success message
       setIsSubmitted(true)
       setEmail("")
     }
@@ -66,7 +74,7 @@ export default function AnimatedHero() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full bg-white/20 border-white/30 text-white placeholder:text-white/70 rounded-xl h-14 font-light backdrop-blur-sm text-center text-lg"
+                    className="w-full bg-white/20 border-white/30 text-white placeholder:text-white/70 rounded-xl h-14 font-light backdrop-blur-sm text-center text-lg pl-6"
                   />
                   <Button
                     type="submit"

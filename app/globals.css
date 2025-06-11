@@ -220,3 +220,26 @@ html {
   transform: translateY(-2px);
   box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.25);
 }
+
+/* Custom input focus styles with purple glow */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none !important;
+  border-color: rgba(139, 92, 246, 0.5) !important;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2) !important;
+  transition: all 0.3s ease;
+}
+
+/* Override the default black focus ring */
+.ring-offset-background:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2) !important;
+}
+
+/* Ensure select fields have the same focus effect */
+select:focus {
+  outline: none !important;
+  border-color: rgba(139, 92, 246, 0.5) !important;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2) !important;
+}

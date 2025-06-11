@@ -84,7 +84,7 @@ ${formData.message}
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full h-12 rounded-xl border-gray-200 focus:border-orange-400 focus:ring-orange-400/20 font-light"
+                className="w-full h-12 rounded-xl border-gray-200 focus:border-purple-400 focus:ring-purple-400/20 font-light pl-6"
                 placeholder="John Smith"
               />
             </div>
@@ -99,7 +99,7 @@ ${formData.message}
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full h-12 rounded-xl border-gray-200 focus:border-orange-400 focus:ring-orange-400/20 font-light"
+                className="w-full h-12 rounded-xl border-gray-200 focus:border-purple-400 focus:ring-purple-400/20 font-light pl-6"
                 placeholder="john@example.com"
               />
             </div>
@@ -116,7 +116,7 @@ ${formData.message}
                 name="company"
                 value={formData.company}
                 onChange={handleChange}
-                className="w-full h-12 rounded-xl border-gray-200 focus:border-orange-400 focus:ring-orange-400/20 font-light"
+                className="w-full h-12 rounded-xl border-gray-200 focus:border-purple-400 focus:ring-purple-400/20 font-light pl-6"
                 placeholder="Your Company"
               />
             </div>
@@ -130,7 +130,7 @@ ${formData.message}
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full h-12 rounded-xl border-gray-200 focus:border-orange-400 focus:ring-orange-400/20 font-light"
+                className="w-full h-12 rounded-xl border-gray-200 focus:border-purple-400 focus:ring-purple-400/20 font-light pl-6"
                 placeholder="+61 123 456 789"
               />
             </div>
@@ -146,7 +146,7 @@ ${formData.message}
               value={formData.subject}
               onChange={handleChange}
               required
-              className="w-full h-12 rounded-xl border border-gray-200 focus:border-orange-400 focus:ring-orange-400/20 font-light px-3 bg-white"
+              className="w-full h-12 rounded-xl border border-gray-200 focus:border-purple-400 focus:ring-purple-400/20 font-light px-6 bg-white"
             >
               <option value="">Select a subject</option>
               <option value="General Inquiry">General Inquiry</option>

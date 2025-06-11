@@ -14,7 +14,6 @@ import {
   BarChart3,
   Shield,
   Calendar,
-  Star,
   Menu,
   Mail,
   Phone,
@@ -121,16 +120,7 @@ export default function HomePage() {
 
           <div className="flex items-center space-x-6">
             <Button
-              variant="ghost"
-              className={`hidden md:inline-flex rounded-full transition-all duration-300 ${
-                isScrolled
-                  ? "text-gray-600 hover:text-purple-600 hover:bg-purple-50"
-                  : "text-white/90 hover:text-white hover:bg-white/10"
-              }`}
-            >
-              Sign In
-            </Button>
-            <Button
+              onClick={scrollToContact}
               className={`font-medium rounded-full px-6 shadow-lg transition-all duration-300 ${
                 isScrolled
                   ? "bg-gradient-to-r from-purple-400 to-orange-400 hover:from-purple-500 hover:to-orange-500 text-white"
@@ -498,13 +488,24 @@ export default function HomePage() {
                         </li>
                       ))}
                     </ul>
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault()
+                        const emailInput = e.currentTarget.querySelector('input[type="email"]') as HTMLInputElement
+                        const email = emailInput.value
+                        if (email) {
+                          const subject = encodeURIComponent(`New ${plan.name} Waitlist Signup`)
+                          const body = encodeURIComponent(`New signup for the Abode ${plan.name} waitlist: ${email}`)
+                          window.location.href = `mailto:leon@leonhayes.com.au?subject=${subject}&body=${body}`
+                          emailInput.value = ""
+                        }
+                      }}
+                      className="space-y-4"
+                    >
                       <Input
                         type="email"
                         placeholder="Enter your email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="w-full rounded-xl border-gray-200 focus:border-purple-400 focus:ring-purple-400/20"
+                        className="w-full rounded-xl border-gray-200 focus:border-purple-400 focus:ring-purple-400/20 pl-6"
                         required
                       />
                       <Button
@@ -588,7 +589,7 @@ export default function HomePage() {
                     </div>
                     <div>
                       <h4 className="text-lg font-medium text-gray-900 mb-2">Call us</h4>
-                      <p className="text-gray-600 font-light">+61 (0) 123 456 789</p>
+                      <p className="text-gray-600 font-light">123-456-7890</p>
                     </div>
                   </div>
 
@@ -598,22 +599,9 @@ export default function HomePage() {
                     </div>
                     <div>
                       <h4 className="text-lg font-medium text-gray-900 mb-2">Visit us</h4>
-                      <p className="text-gray-600 font-light">
-                        Level 1, 123 Collins Street
-                        <br />
-                        Melbourne, VIC 3000
-                        <br />
-                        Australia
-                      </p>
+                      <p className="text-gray-600 font-light">123 Main St, Anytown, USA</p>
                     </div>
                   </div>
-                </div>
-
-                <div className="pt-8">
-                  <h4 className="text-lg font-medium text-gray-900 mb-4">Response time</h4>
-                  <p className="text-gray-600 font-light">
-                    We typically respond to all inquiries within 24 hours during business days.
-                  </p>
                 </div>
               </div>
             </ScrollSection>
@@ -625,153 +613,70 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* CTA Section */}
-      <section className="py-32 bg-gradient-to-r from-purple-400 to-orange-400">
-        <div className="container mx-auto px-8 text-center">
+      {/* Footer CTA */}
+      <section className="py-24 bg-gray-900 text-white">
+        <div className="container mx-auto px-8">
           <ScrollSection blurAmount={4} fadeDirection="up">
-            <h2 className="text-5xl font-light text-white mb-8 leading-tight">
-              Ready to be part of the
-              <br />
-              <span className="text-white/80">property management revolution?</span>
-            </h2>
-            <p className="text-xl text-white/90 mb-16 max-w-2xl mx-auto leading-relaxed font-light">
-              Join our waitlist and be among the first to experience Abode when we launch
-            </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center max-w-lg mx-auto">
+            <div className="text-center mb-20">
+              <h2 className="text-5xl font-light mb-8 leading-tight">
+                Join the Abode waitlist
+                <br />
+                <span className="text-gray-500">and be the first to know when we launch</span>
+              </h2>
+              <p className="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed font-light">
+                Get exclusive access to early bird pricing and special features.
+              </p>
+            </div>
+          </ScrollSection>
+
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center max-w-lg mx-auto">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault()
+                const emailInput = e.currentTarget.querySelector('input[type="email"]') as HTMLInputElement
+                const email = emailInput.value
+                if (email) {
+                  const subject = encodeURIComponent("New Waitlist Signup")
+                  const body = encodeURIComponent(`New signup for the Abode waitlist: ${email}`)
+                  window.location.href = `mailto:leon@leonhayes.com.au?subject=${subject}&body=${body}`
+                  emailInput.value = ""
+                }
+              }}
+              className="flex flex-col sm:flex-row gap-6 w-full"
+            >
               <Input
                 type="email"
                 placeholder="Enter your email"
-                className="bg-white/10 border-white/20 text-white placeholder:text-white/70 rounded-full h-14 font-light"
+                className="bg-white/10 border-white/20 text-white placeholder:text-white/70 rounded-full h-14 font-light pl-6"
+                required
               />
-              <Button className="bg-white text-gray-900 hover:bg-gray-100 whitespace-nowrap rounded-full h-14 px-8 font-medium">
+              <Button
+                type="submit"
+                className="bg-white text-gray-900 hover:bg-gray-100 whitespace-nowrap rounded-full h-14 px-8 font-medium"
+              >
                 Join Waitlist
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
+            </form>
+          </div>
+
+          <ScrollSection delay={800} blurAmount={2} fadeDirection="up">
+            <div className="mt-16 text-center max-w-2xl mx-auto">
+              <p className="text-gray-500 leading-relaxed">
+                By joining the waitlist, you agree to our{" "}
+                <Link href="#" className="text-white hover:underline">
+                  Terms of Service
+                </Link>{" "}
+                and{" "}
+                <Link href="#" className="text-white hover:underline">
+                  Privacy Policy
+                </Link>
+                .
+              </p>
             </div>
-            <p className="text-base text-white/80 mt-8 font-light">No spam, just updates • Early access guaranteed</p>
           </ScrollSection>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-white py-20">
-        <div className="container mx-auto px-8">
-          <div className="grid md:grid-cols-4 gap-12">
-            <div>
-              <div className="flex items-center mb-6">
-                <span className="text-2xl font-medium text-gray-800 tracking-wide">
-                  abode
-                  <span className="bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent">
-                    .
-                  </span>
-                </span>
-              </div>
-              <p className="text-gray-600 mb-6 text-base leading-relaxed">
-                The future of property management for tenants, owners, and agents.
-              </p>
-              <div className="flex space-x-2">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <Star key={star} className="h-4 w-4 fill-purple-400 text-purple-400" />
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h3 className="font-medium mb-6 text-lg text-gray-800">Product</h3>
-              <ul className="space-y-3 text-gray-600">
-                <li>
-                  <Link href="#" className="hover:text-purple-500 transition-colors text-base">
-                    Features
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-purple-500 transition-colors text-base">
-                    Solutions
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-purple-500 transition-colors text-base">
-                    Pricing
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-purple-500 transition-colors text-base">
-                    Roadmap
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-medium mb-6 text-lg text-gray-800">Company</h3>
-              <ul className="space-y-3 text-gray-600">
-                <li>
-                  <Link href="#" className="hover:text-purple-500 transition-colors text-base">
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-purple-500 transition-colors text-base">
-                    Blog
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-purple-500 transition-colors text-base">
-                    Careers
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-purple-500 transition-colors text-base">
-                    Contact
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-medium mb-6 text-lg text-gray-800">Support</h3>
-              <ul className="space-y-3 text-gray-600">
-                <li>
-                  <Link href="#" className="hover:text-purple-500 transition-colors text-base">
-                    Help Center
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-purple-500 transition-colors text-base">
-                    Documentation
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-purple-500 transition-colors text-base">
-                    Updates
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-purple-500 transition-colors text-base">
-                    Security
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-100 mt-16 pt-12 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-600 text-base">© {new Date().getFullYear()} Abode. All rights reserved.</p>
-            <div className="flex space-x-8 mt-6 md:mt-0">
-              <Link href="#" className="text-gray-600 hover:text-purple-500 transition-colors text-base">
-                Privacy
-              </Link>
-              <Link href="#" className="text-gray-600 hover:text-purple-500 transition-colors text-base">
-                Terms
-              </Link>
-              <Link href="#" className="text-gray-600 hover:text-purple-500 transition-colors text-base">
-                Cookies
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }
