@@ -75,12 +75,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, rgba(139, 92, 246, 0.6), rgba(251, 207, 232, 0.6));
+  background: linear-gradient(to bottom, rgba(139, 92, 246, 0.6), rgba(251, 146, 60, 0.6));
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, rgba(139, 92, 246, 0.8), rgba(251, 207, 232, 0.8));
+  background: linear-gradient(to bottom, rgba(139, 92, 246, 0.8), rgba(251, 146, 60, 0.8));
 }
 
 /* Smooth scrolling */
@@ -88,17 +88,87 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Gentle animations */
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
+/* Animated gradient backgrounds */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
   }
   50% {
-    transform: translateY(-10px);
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
+@keyframes gradient-x {
+  0%,
+  100% {
+    transform: translateX(-25%);
+  }
+  50% {
+    transform: translateX(25%);
+  }
+}
+
+@keyframes gradient-y {
+  0%,
+  100% {
+    transform: translateY(-25%);
+  }
+  50% {
+    transform: translateY(25%);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-20px) rotate(1deg);
+  }
+  66% {
+    transform: translateY(-10px) rotate(-1deg);
+  }
+}
+
+@keyframes float-delayed {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-15px) rotate(-1deg);
+  }
+  66% {
+    transform: translateY(-25px) rotate(1deg);
+  }
+}
+
+.animate-gradient-shift {
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+.animate-gradient-x {
+  animation: gradient-x 20s ease-in-out infinite;
+}
+
+.animate-gradient-y {
+  animation: gradient-y 25s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 20s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 25s ease-in-out infinite;
+}
+
+/* Gentle animations */
 .animate-float {
   animation: float 12s ease-in-out infinite;
 }
@@ -118,7 +188,7 @@ html {
 
 /* Enhanced drop shadows with soft colors */
 .shadow-soft {
-  box-shadow: 0 10px 25px -5px rgba(147, 51, 234, 0.2);
+  box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.2);
 }
 
 /* Gradient text utility with soft colors */
@@ -126,19 +196,19 @@ html {
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  background-image: linear-gradient(to right, rgba(139, 92, 246, 0.8), rgba(251, 207, 232, 0.8));
+  background-image: linear-gradient(to right, rgba(139, 92, 246, 0.8), rgba(251, 146, 60, 0.8));
 }
 
 /* Soft glow effect */
 .glow-soft {
-  box-shadow: 0 0 20px rgba(147, 51, 234, 0.3);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
 }
 
 /* Glassmorphism with soft colors */
 .glass-soft {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(147, 51, 234, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.1);
 }
 
 /* Gentle hover effects */
@@ -148,5 +218,5 @@ html {
 
 .hover-lift:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px -5px rgba(147, 51, 234, 0.25);
+  box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.25);
 }
