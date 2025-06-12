@@ -146,7 +146,8 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         </div>
       </header>
 
-      <main>{children}</main>
+      {/* Add top padding equal to nav height (h-20 = 5rem = 80px) */}
+      <main className="pt-20 md:pt-20">{children}</main>
 
       {/* Footer CTA */}
       <section className="py-24 bg-gray-900 text-white">
