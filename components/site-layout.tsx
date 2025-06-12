@@ -19,8 +19,11 @@ import ScrollSection from "@/components/scroll-section"
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
+  const isStudio = pathname.startsWith('/studio')
 
   useEffect(() => {
+    if (isStudio) return
+
     const handleScroll = () => {
       // The header should be transparent only when at the top of the homepage.
       const isHomePageAtTop = pathname === "/" && window.scrollY < 50
@@ -32,7 +35,11 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
     handleScroll()
 
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [pathname])
+  }, [pathname, isStudio])
+
+  if (isStudio) {
+    return <>{children}</>
+  }
 
   const scrollToContact = () => {
     const contactSection = document.getElementById("contact")
