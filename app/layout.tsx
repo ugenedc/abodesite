@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import SiteLayout from '@/components/site-layout'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'Abode - Revolutionary Property Management',
+  description: 'The complete property ecosystem for tenants, owners, and agents.',
   generator: 'v0.dev',
 }
 
@@ -14,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <SiteLayout>{children}</SiteLayout>
+      </body>
     </html>
   )
 }
