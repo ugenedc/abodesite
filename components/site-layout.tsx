@@ -41,6 +41,13 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
     return <>{children}</>
   }
 
+  const navBg = pathname === "/" && !isScrolled
+    ? "bg-blue-500/20"
+    : "bg-white/95 backdrop-blur-md shadow-sm"
+  const navText = pathname === "/" && !isScrolled
+    ? "text-white"
+    : "text-gray-800"
+
   const scrollToContact = () => {
     const contactSection = document.getElementById("contact")
     if (contactSection) {
@@ -52,17 +59,13 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
     <div className="min-h-screen bg-white">
       {/* Dynamic Header */}
       <header
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-          isScrolled ? "bg-white/95 backdrop-blur-md shadow-sm" : "bg-white/10 backdrop-blur-md"
-        }`}
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${navBg}`}
       >
         <div className="container mx-auto px-8 h-20 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Link href="/">
               <span
-                className={`text-2xl font-medium tracking-wide transition-colors duration-300 ${
-                  isScrolled ? "text-gray-800" : "text-white"
-                }`}
+                className={`text-2xl font-medium tracking-wide transition-colors duration-300 ${navText}`}
               >
                 abode<span className="text-orange-400">.</span>
               </span>
@@ -72,51 +75,31 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
           <nav className="hidden md:flex items-center space-x-12">
             <Link
               href="/#features"
-              className={`transition-all duration-300 ${
-                isScrolled
-                  ? "text-gray-600 hover:bg-gradient-to-r hover:from-purple-400 hover:to-orange-400 hover:bg-clip-text hover:text-transparent"
-                  : "text-white/90 hover:text-white"
-              }`}
+              className={`transition-all duration-300 ${navText}`}
             >
               Features
             </Link>
             <Link
               href="/#solutions"
-              className={`transition-all duration-300 ${
-                isScrolled
-                  ? "text-gray-600 hover:bg-gradient-to-r hover:from-purple-400 hover:to-orange-400 hover:bg-clip-text hover:text-transparent"
-                  : "text-white/90 hover:text-white"
-              }`}
+              className={`transition-all duration-300 ${navText}`}
             >
               Solutions
             </Link>
             <Link
               href="/#pricing"
-              className={`transition-all duration-300 ${
-                isScrolled
-                  ? "text-gray-600 hover:bg-gradient-to-r hover:from-purple-400 hover:to-orange-400 hover:bg-clip-text hover:text-transparent"
-                  : "text-white/90 hover:text-white"
-              }`}
+              className={`transition-all duration-300 ${navText}`}
             >
               Pricing
             </Link>
             <Link
               href="/blog"
-              className={`transition-all duration-300 ${
-                isScrolled
-                  ? "text-gray-600 hover:bg-gradient-to-r hover:from-purple-400 hover:to-orange-400 hover:bg-clip-text hover:text-transparent"
-                  : "text-white/90 hover:text-white"
-              }`}
+              className={`transition-all duration-300 ${navText}`}
             >
               Blog
             </Link>
             <button
               onClick={scrollToContact}
-              className={`transition-all duration-300 ${
-                isScrolled
-                  ? "text-gray-600 hover:bg-gradient-to-r hover:from-purple-400 hover:to-orange-400 hover:bg-clip-text hover:text-transparent"
-                  : "text-white/90 hover:text-white"
-              }`}
+              className={`transition-all duration-300 ${navText}`}
             >
               Contact
             </button>
@@ -126,9 +109,9 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
             <Button
               onClick={scrollToContact}
               className={`font-medium rounded-full px-6 shadow-lg transition-all duration-300 ${
-                isScrolled
-                  ? "bg-gradient-to-r from-purple-400 to-orange-400 hover:from-purple-500 hover:to-orange-500 text-white"
-                  : "bg-white hover:bg-white/90 text-orange-400"
+                pathname === "/" && !isScrolled
+                  ? "bg-white/30 text-orange-400"
+                  : "bg-gradient-to-r from-purple-400 to-orange-400 hover:from-purple-500 hover:to-orange-500 text-white"
               }`}
             >
               Join Waitlist
@@ -136,9 +119,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
             <Button
               variant="ghost"
               size="icon"
-              className={`md:hidden rounded-full transition-all duration-300 ${
-                isScrolled ? "text-gray-600 hover:bg-gray-100" : "text-white hover:bg-white/10"
-              }`}
+              className={`md:hidden rounded-full transition-all duration-300 ${navText}`}
             >
               <Menu className="h-5 w-5" />
             </Button>
