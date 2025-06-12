@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useEffect, useState } from "react"
+import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -17,22 +18,21 @@ import ScrollSection from "@/components/scroll-section"
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   const [isScrolled, setIsScrolled] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
-      // For the homepage, the hero section is the height of the viewport.
-      // We'll consider the user "scrolled" when they've moved past that.
-      // For other pages, we can just check if they've scrolled down a bit.
-      const threshold = window.location.pathname === '/' ? window.innerHeight - 100 : 100
-      setIsScrolled(window.scrollY > threshold)
+      // The header should be transparent only when at the top of the homepage.
+      const isHomePageAtTop = pathname === "/" && window.scrollY < 50
+      setIsScrolled(!isHomePageAtTop)
     }
 
     window.addEventListener("scroll", handleScroll)
-    // Set initial state
+    // Set initial state correctly on load & navigation
     handleScroll()
 
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  }, [pathname])
 
   const scrollToContact = () => {
     const contactSection = document.getElementById("contact")
