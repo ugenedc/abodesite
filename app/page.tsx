@@ -106,6 +106,16 @@ export default function HomePage() {
             >
               Pricing
             </Link>
+            <Link
+              href="/blog"
+              className={`transition-all duration-300 ${
+                isScrolled
+                  ? "text-gray-600 hover:bg-gradient-to-r hover:from-purple-400 hover:to-orange-400 hover:bg-clip-text hover:text-transparent"
+                  : "text-white/90 hover:text-white"
+              }`}
+            >
+              Blog
+            </Link>
             <button
               onClick={scrollToContact}
               className={`transition-all duration-300 ${
