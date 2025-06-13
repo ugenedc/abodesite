@@ -57,7 +57,7 @@ export default function HomePage() {
   }
 
   return (
-    <>
+    <div className="min-h-screen bg-gradient-to-br from-pink-400 via-purple-400 to-orange-300">
       <AnimatedHero />
 
       {/* Solutions Section */}
@@ -529,6 +529,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }
