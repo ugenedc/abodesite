@@ -46,7 +46,7 @@ export default function WaitlistForm({ className = "", inputClass = "", buttonCl
         type="email"
         name="email"
         placeholder={placeholder}
-        className={`rounded-xl border border-white/30 bg-white/20 text-white placeholder:text-white/70 h-14 font-light pl-6 ${inputClass}`}
+        className={`rounded-xl border h-14 font-light pl-6 ${inputClass}`}
         required
         disabled={loading}
       />

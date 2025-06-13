@@ -344,6 +344,7 @@ export default function HomePage() {
                   "Up to 5 properties",
                   "Early access to new features",
                   "Dedicated onboarding",
+                  "Access to the Abode Academy",
                 ],
                 icon: <Gift className="h-6 w-6" />,
                 popular: false,
@@ -382,7 +383,7 @@ export default function HomePage() {
             ].map((plan, index) => (
               <ScrollSection key={index} delay={plan.delay} blurAmount={3} fadeDirection="up">
                 <Card
-                  className={`relative border-0 bg-white transition-all duration-500 rounded-2xl shadow-sm hover:shadow-lg ${plan.popular ? "ring-1 ring-gray-200" : ""}`}
+                  className={`relative border-0 bg-white transition-all duration-500 rounded-2xl shadow-sm hover:shadow-lg ${plan.popular ? "ring-1 ring-gray-200" : ""} h-full flex flex-col`}
                 >
                   {plan.popular && (
                     <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
@@ -401,8 +402,8 @@ export default function HomePage() {
                     </div>
                     <CardDescription className="text-base text-gray-500 font-light">{plan.description}</CardDescription>
                   </CardHeader>
-                  <CardContent className="pt-4 pb-10">
-                    <ul className="space-y-4 mb-10">
+                  <CardContent className="pt-4 pb-10 flex flex-col flex-grow">
+                    <ul className="space-y-4 mb-10 flex-grow">
                       {plan.features.map((feature, featureIndex) => (
                         <li key={featureIndex} className="flex items-center text-gray-600">
                           <CheckCircle className="h-4 w-4 text-purple-500 mr-3 flex-shrink-0" />
@@ -410,7 +411,11 @@ export default function HomePage() {
                         </li>
                       ))}
                     </ul>
-                    <WaitlistForm inputClass="w-full" buttonClass="w-full py-4 text-base rounded-full" placeholder="Enter your email" />
+                    <WaitlistForm
+                      inputClass="w-full !bg-white border-gray-300 text-gray-900 placeholder:text-gray-500"
+                      buttonClass="w-full py-4 text-base rounded-full bg-gradient-to-r from-purple-400 to-orange-400 text-white"
+                      placeholder="Enter your email"
+                    />
                   </CardContent>
                 </Card>
               </ScrollSection>
