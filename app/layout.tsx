@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import SiteLayout from '@/components/site-layout'
-import Head from 'next/head'
+import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: 'Abode - Revolutionary Property Management',
@@ -16,11 +16,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
+      <head>
         <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css" rel="stylesheet" />
-      </Head>
+      </head>
       <body>
         <SiteLayout>{children}</SiteLayout>
+        <Script src="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js" strategy="beforeInteractive" />
       </body>
     </html>
   )

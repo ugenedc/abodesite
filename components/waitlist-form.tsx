@@ -61,7 +61,12 @@ export default function WaitlistForm({
         className={`rounded-xl h-12 px-6 font-medium shadow-lg transition-all duration-300 flex items-center justify-center gap-2 flex-shrink-0 ${buttonClass}`}
         disabled={loading}
       >
-        {loading ? "..." : <ArrowRight className="h-5 w-5" />}
+        {loading ? "..." : (
+          <>
+            Join Waitlist
+            <ArrowRight className="h-4 w-4" />
+          </>
+        )}
       </button>
       {error && <div className="text-red-500 text-sm text-center">{error}</div>}
     </form>
