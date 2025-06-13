@@ -412,9 +412,10 @@ export default function HomePage() {
                       ))}
                     </ul>
                     <WaitlistForm
-                      className="!bg-gradient-to-r !from-purple-400 !to-orange-400"
-                      inputClass="w-full !bg-white border-gray-300 text-gray-900 placeholder:text-gray-500"
-                      buttonClass="w-full py-4 text-base rounded-full bg-gradient-to-r from-purple-400 to-orange-400 text-white"
+                      className="w-full"
+                      successClassName="!bg-gradient-to-r !from-purple-400 !to-orange-400"
+                      inputClass="w-full !bg-white !border-gray-300 text-gray-900 placeholder:text-gray-500"
+                      buttonClass="!bg-gradient-to-r !from-purple-400 !to-orange-400 text-white"
                       placeholder="Enter your email"
                     />
                   </CardContent>

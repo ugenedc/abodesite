@@ -2,7 +2,13 @@
 import { useState } from "react"
 import { ArrowRight } from "lucide-react"
 
-export default function WaitlistForm({ className = "", inputClass = "", buttonClass = "", placeholder = "Enter your email to join waitlist" }) {
+export default function WaitlistForm({
+  className = "",
+  inputClass = "",
+  buttonClass = "",
+  placeholder = "Enter your email to join waitlist",
+  successClassName = "",
+}) {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
@@ -33,7 +39,7 @@ export default function WaitlistForm({ className = "", inputClass = "", buttonCl
 
   if (submitted) {
     return (
-      <div className={`rounded-xl bg-white/20 border border-white/30 p-6 text-center shadow-lg ${className}`}>
+      <div className={`rounded-xl p-6 text-center shadow-lg ${successClassName}`}>
         <div className="text-2xl mb-2 text-white">🎉 You're on the list!</div>
         <div className="text-white/90">We'll notify you as soon as Abode launches.</div>
       </div>
@@ -41,22 +47,21 @@ export default function WaitlistForm({ className = "", inputClass = "", buttonCl
   }
 
   return (
-    <form onSubmit={handleSubmit} className={`flex flex-col gap-6 ${className}`}> 
+    <form onSubmit={handleSubmit} className={`flex gap-2 ${className}`}>
       <input
         type="email"
         name="email"
         placeholder={placeholder}
-        className={`rounded-xl border h-14 font-light pl-6 ${inputClass}`}
+        className={`rounded-xl border h-12 font-light px-4 flex-grow ${inputClass}`}
         required
         disabled={loading}
       />
       <button
         type="submit"
-        className={`bg-white text-gray-900 hover:bg-gray-100 rounded-full h-14 px-8 font-medium shadow-lg transition-all duration-300 flex items-center justify-center gap-2 ${buttonClass}`}
+        className={`rounded-xl h-12 px-6 font-medium shadow-lg transition-all duration-300 flex items-center justify-center gap-2 flex-shrink-0 ${buttonClass}`}
         disabled={loading}
       >
-        {loading ? "Joining..." : "Join Waitlist"}
-        <ArrowRight className="ml-2 h-4 w-4 inline" />
+        {loading ? "..." : <ArrowRight className="h-5 w-5" />}
       </button>
       {error && <div className="text-red-500 text-sm text-center">{error}</div>}
     </form>
