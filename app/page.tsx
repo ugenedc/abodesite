@@ -1,3 +1,4 @@
+{/* Test comment to confirm edit capabilities */}
 "use client"
 
 import type React from "react"
