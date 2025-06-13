@@ -56,7 +56,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-pink-400 via-purple-400 to-orange-300">
       {/* Dynamic Header */}
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${navBg}`}
