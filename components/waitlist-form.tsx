@@ -47,18 +47,18 @@ export default function WaitlistForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className={`flex gap-2 ${className}`}>
+    <form onSubmit={handleSubmit} className={`flex flex-col gap-4 ${className}`}>
       <input
         type="email"
         name="email"
         placeholder={placeholder}
-        className={`rounded-xl border h-12 font-light px-4 flex-grow ${inputClass}`}
+        className={`w-full rounded-xl border h-14 font-light px-4 ${inputClass}`}
         required
         disabled={loading}
       />
       <button
         type="submit"
-        className={`rounded-xl h-12 px-6 font-medium shadow-lg transition-all duration-300 flex items-center justify-center gap-2 flex-shrink-0 ${buttonClass}`}
+        className={`w-full rounded-xl h-14 font-medium shadow-lg transition-all duration-300 flex items-center justify-center gap-2 ${buttonClass}`}
         disabled={loading}
       >
         {loading ? "..." : (
