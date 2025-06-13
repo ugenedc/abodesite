@@ -7,6 +7,22 @@ import React, { useEffect, useRef } from "react"
 import WaitlistForm from "./waitlist-form"
 import { Badge } from "@/components/ui/badge"
 
+const locations = {
+  brisbaneCBD: { center: [153.026, -27.4705], zoom: 14.5 },
+  newFarm: { center: [153.042, -27.468], zoom: 15 },
+  southBank: { center: [153.02, -27.476], zoom: 15.2 },
+  westEnd: { center: [153.01, -27.48], zoom: 14.8 },
+  fortitudeValley: { center: [153.035, -27.458], zoom: 15.5 },
+}
+
+const markers = [
+  { lngLat: [153.026, -27.4705], name: "Central Station" },
+  { lngLat: [153.042, -27.468], name: "New Farm Park" },
+  { lngLat: [153.02, -27.476], name: "South Bank Parklands" },
+  { lngLat: [153.01, -27.48], name: "Davies Park" },
+  { lngLat: [153.035, -27.458], name: "James Street" },
+]
+
 export default function MapHero() {
   const mapContainer = useRef(null)
   const map = useRef(null)
