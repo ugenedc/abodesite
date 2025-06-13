@@ -61,11 +61,6 @@ export default function HomePage() {
     <div className="min-h-screen bg-gradient-to-br from-pink-400 via-purple-400 to-orange-300">
       <MapHero />
 
-      {/* Hero Waitlist Form */}
-      <div className="flex flex-col items-center justify-center mt-8">
-        <WaitlistForm />
-      </div>
-
       {/* Solutions Section */}
       <section id="solutions" className="py-32 bg-white">
         <div className="container mx-auto px-8">
