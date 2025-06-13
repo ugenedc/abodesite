@@ -1,14 +1,47 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 
 export default function ContactForm() {
+  const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setLoading(true)
+    setError("")
+    const form = e.currentTarget
+    const formData = new FormData(form)
+    try {
+      const res = await fetch("https://formspree.io/f/mwpboyrr", {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" },
+      })
+      if (res.ok) {
+        setSubmitted(true)
+      } else {
+        setError("Something went wrong. Please try again later.")
+      }
+    } catch {
+      setError("Something went wrong. Please try again later.")
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (submitted) {
+    return (
+      <div className="rounded-xl bg-white/20 border border-white/30 p-6 text-center text-gray-900 shadow-lg">
+        <div className="text-2xl mb-2">🎉 Thanks for reaching out!</div>
+        <div className="text-gray-800">We'll get back to you as soon as possible.</div>
+      </div>
+    )
+  }
+
   return (
-    <form
-      action="https://formspree.io/f/mwpboyrr"
-      method="POST"
-      className="space-y-6"
-    >
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-gray-700">
           Name
@@ -48,9 +81,11 @@ export default function ContactForm() {
       <button
         type="submit"
         className="w-full py-3 px-6 rounded-full bg-gradient-to-r from-purple-400 to-orange-400 text-white font-medium shadow-lg hover:from-purple-500 hover:to-orange-500 transition-all duration-300"
+        disabled={loading}
       >
-        Send Message
+        {loading ? "Sending..." : "Send Message"}
       </button>
+      {error && <div className="text-red-500 text-sm text-center">{error}</div>}
     </form>
   )
 }

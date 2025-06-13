@@ -28,6 +28,7 @@ import ContactForm from "@/components/contact-form"
 import ScrollSection from "@/components/scroll-section"
 import AnimatedHero from "@/components/animated-hero"
 import { useEffect, useState } from "react"
+import WaitlistForm from "@/components/waitlist-form"
 
 export default function HomePage() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -62,26 +63,7 @@ export default function HomePage() {
 
       {/* Hero Waitlist Form */}
       <div className="flex flex-col items-center justify-center mt-8">
-        <form
-          action="https://formspree.io/f/xblyowzq"
-          method="POST"
-          className="w-full max-w-md flex flex-col gap-6"
-        >
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter your email to join waitlist"
-            className="w-full rounded-xl border border-white/30 bg-white/20 text-white placeholder:text-white/70 h-14 font-light pl-6"
-            required
-          />
-          <button
-            type="submit"
-            className="w-full bg-white text-gray-900 hover:bg-gray-100 rounded-full h-14 px-8 font-medium shadow-lg transition-all duration-300"
-          >
-            Join Waitlist
-            <ArrowRight className="ml-2 h-4 w-4 inline" />
-          </button>
-        </form>
+        <WaitlistForm />
       </div>
 
       {/* Solutions Section */}
@@ -428,29 +410,7 @@ export default function HomePage() {
                         </li>
                       ))}
                     </ul>
-                    <form
-                      action="https://formspree.io/f/xblyowzq"
-                      method="POST"
-                      className="space-y-4"
-                    >
-                      <input
-                        type="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        className="w-full rounded-xl border-gray-200 focus:border-purple-400 focus:ring-purple-400/20 pl-6"
-                        required
-                      />
-                      <Button
-                        type="submit"
-                        className={`w-full py-4 text-base rounded-full transition-all duration-300 font-medium ${
-                          plan.popular
-                            ? "bg-gradient-to-r from-purple-400 to-orange-400 hover:from-purple-500 hover:to-orange-500 text-white"
-                            : "bg-gray-50 hover:bg-gray-100 text-gray-900"
-                        }`}
-                      >
-                        {plan.name === "Enterprise Preview" ? "Request Info" : "Join Waitlist"}
-                      </Button>
-                    </form>
+                    <WaitlistForm inputClass="w-full" buttonClass="w-full py-4 text-base rounded-full" placeholder="Enter your email" />
                   </CardContent>
                 </Card>
               </ScrollSection>
@@ -542,47 +502,6 @@ export default function HomePage() {
             <ScrollSection delay={400} blurAmount={3} fadeDirection="right">
               <ContactForm />
             </ScrollSection>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer CTA */}
-      <section className="py-24 bg-gray-900 text-white">
-        <div className="container mx-auto px-8">
-          <ScrollSection blurAmount={4} fadeDirection="up">
-            <div className="text-center mb-20">
-              <h2 className="text-5xl font-light mb-8 leading-tight">
-                Join the Abode waitlist
-                <br />
-                <span className="text-gray-500">and be the first to know when we launch</span>
-              </h2>
-              <p className="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed font-light">
-                Get exclusive access to early bird pricing and special features.
-              </p>
-            </div>
-          </ScrollSection>
-
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center max-w-lg mx-auto">
-            <form
-              action="https://formspree.io/f/xblyowzq"
-              method="POST"
-              className="flex flex-col sm:flex-row gap-6 w-full"
-            >
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                className="bg-white/10 border-white/20 text-white placeholder:text-white/70 rounded-full h-14 font-light pl-6"
-                required
-              />
-              <button
-                type="submit"
-                className="bg-white text-gray-900 hover:bg-gray-100 whitespace-nowrap rounded-full h-14 px-8 font-medium"
-              >
-                Join Waitlist
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </button>
-            </form>
           </div>
         </div>
       </section>
