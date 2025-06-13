@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { ArrowRight } from "lucide-react"
 import { useState } from "react"
 import WaitlistForm from "./waitlist-form"
+import { Badge } from "@/components/ui/badge"
 
 export default function AnimatedHero() {
   const [email, setEmail] = useState("")
@@ -84,15 +85,5 @@ export default function AnimatedHero() {
         </div>
       </div>
     </section>
-  )
-}
-
-// Badge component for the hero section
-type BadgeProps = React.PropsWithChildren<{ className?: string } & React.HTMLAttributes<HTMLSpanElement>>;
-function Badge({ children, className = "", ...props }: BadgeProps) {
-  return (
-    <span className={`px-4 py-1 text-sm font-medium rounded-full ${className}`} {...props}>
-      {children}
-    </span>
   )
 }

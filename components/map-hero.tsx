@@ -2,8 +2,8 @@
 "use client"
 
 import React, { useEffect, useRef } from "react"
-// import mapboxgl from "mapbox-gl" // We load this from the CDN
-import "mapbox-gl/dist/mapbox-gl.css"
+// We load this from the CDN, so no local import is needed.
+// import "mapbox-gl/dist/mapbox-gl.css" 
 import WaitlistForm from "./waitlist-form"
 import { Badge } from "@/components/ui/badge"
 
