@@ -31,8 +31,8 @@ export default function AnimatedHero() {
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Improved Animated Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 animate-gradient-shift"></div>
+      {/* Seamless animated gradient background */}
+      <div className="animated-gradient absolute inset-0"></div>
 
       {/* Subtle moving gradient overlays with improved colors */}
       <div className="absolute inset-0 opacity-40">
