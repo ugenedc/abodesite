@@ -8,8 +8,8 @@ import MapCanvas from "./map-canvas"
 
 export default function MapHero() {
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-pink-400 via-purple-400 to-orange-300 animate-gradient-shift">
-      <div className="fixed inset-0 opacity-40">
+    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-pink-400 via-purple-400 to-orange-300">
+      <div className="absolute inset-0 z-50">
         <MapCanvas />
       </div>
 
