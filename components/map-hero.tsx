@@ -35,7 +35,7 @@ export default function MapHero() {
 
     map.current = new window.mapboxgl.Map({
       container: mapContainer.current,
-      style: "mapbox://styles/mapbox/dark-v11", // Dark, elegant style
+      style: "mapbox://styles/mapbox/light-v11", // Use a light style for screen blend mode
       projection: 'mercator', // Force 2D projection to prevent globe error
       center: locations.brisbaneCBD.center as [number, number],
       zoom: locations.brisbaneCBD.zoom,
