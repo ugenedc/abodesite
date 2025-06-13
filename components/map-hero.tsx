@@ -86,9 +86,8 @@ export default function MapHero() {
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      <div ref={mapContainer} className="absolute inset-0" />
-      <div className="absolute inset-0 bg-black/50" /> {/* Dark overlay for readability */}
-      
+      <div ref={mapContainer} className="absolute inset-0 mix-blend-mode-screen" />
+
       <div className="relative z-10 container mx-auto px-8 text-center">
         <div className="max-w-4xl mx-auto">
           <Badge className="mb-6 inline-block bg-white/20 text-white border-white/20 rounded-full px-4 py-1 backdrop-blur-sm">
@@ -106,8 +105,8 @@ export default function MapHero() {
           <div className="max-w-xl mx-auto mb-16">
             <WaitlistForm
               className="w-full flex-col sm:flex-row"
-              inputClass="w-full bg-white/20 border-white/30 text-white placeholder:text-white/70 rounded-xl h-14 font-light backdrop-blur-sm text-center text-lg pl-6"
-              buttonClass="w-full sm:w-auto bg-white hover:bg-white/90 text-gray-800 px-8 py-6 text-lg font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+              inputClass="w-full bg-white/20 border-white/30 text-white placeholder:text-white/70 rounded-xl h-14 font-light backdrop-blur-sm text-center text-lg"
+              buttonClass="w-full sm:w-auto h-14 bg-white hover:bg-white/90 text-gray-800 text-lg font-medium rounded-xl shadow-lg hover:shadow-xl"
               placeholder="Enter your email to join waitlist"
             />
           </div>
