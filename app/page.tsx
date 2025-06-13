@@ -405,21 +405,13 @@ export default function HomePage() {
                       ))}
                     </ul>
                     <form
-                      onSubmit={(e) => {
-                        e.preventDefault()
-                        const emailInput = e.currentTarget.querySelector('input[type="email"]') as HTMLInputElement
-                        const email = emailInput.value
-                        if (email) {
-                          const subject = encodeURIComponent(`New ${plan.name} Waitlist Signup`)
-                          const body = encodeURIComponent(`New signup for the Abode ${plan.name} waitlist: ${email}`)
-                          window.location.href = `mailto:leon@leonhayes.com.au?subject=${subject}&body=${body}`
-                          emailInput.value = ""
-                        }
-                      }}
+                      action="https://formspree.io/f/xblyowzq"
+                      method="POST"
                       className="space-y-4"
                     >
-                      <Input
+                      <input
                         type="email"
+                        name="email"
                         placeholder="Enter your email"
                         className="w-full rounded-xl border-gray-200 focus:border-purple-400 focus:ring-purple-400/20 pl-6"
                         required
@@ -526,6 +518,47 @@ export default function HomePage() {
             <ScrollSection delay={400} blurAmount={3} fadeDirection="right">
               <ContactForm />
             </ScrollSection>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer CTA */}
+      <section className="py-24 bg-gray-900 text-white">
+        <div className="container mx-auto px-8">
+          <ScrollSection blurAmount={4} fadeDirection="up">
+            <div className="text-center mb-20">
+              <h2 className="text-5xl font-light mb-8 leading-tight">
+                Join the Abode waitlist
+                <br />
+                <span className="text-gray-500">and be the first to know when we launch</span>
+              </h2>
+              <p className="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed font-light">
+                Get exclusive access to early bird pricing and special features.
+              </p>
+            </div>
+          </ScrollSection>
+
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center max-w-lg mx-auto">
+            <form
+              action="https://formspree.io/f/xblyowzq"
+              method="POST"
+              className="flex flex-col sm:flex-row gap-6 w-full"
+            >
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                className="bg-white/10 border-white/20 text-white placeholder:text-white/70 rounded-full h-14 font-light pl-6"
+                required
+              />
+              <button
+                type="submit"
+                className="bg-white text-gray-900 hover:bg-gray-100 whitespace-nowrap rounded-full h-14 px-8 font-medium"
+              >
+                Join Waitlist
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </button>
+            </form>
           </div>
         </div>
       </section>
