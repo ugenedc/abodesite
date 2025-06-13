@@ -111,7 +111,7 @@ export default function MapHero() {
   }, []);
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-[#222]">
       <div ref={mapContainer} className="absolute inset-0 mix-blend-mode-screen" />
 
       <div className="relative z-10 container mx-auto px-8 text-center">
