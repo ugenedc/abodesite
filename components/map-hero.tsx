@@ -28,82 +28,106 @@ export default function MapHero() {
   const map = useRef(null)
 
   useEffect(() => {
+    console.log("MapHero: useEffect triggered.");
+
     const initializeMap = () => {
-      if (map.current || !mapContainer.current || !window.mapboxgl) {
-        // If map is already initialized, or container isn't ready, or mapboxgl is not loaded, do nothing.
+      console.log("MapHero: initializeMap function called.");
+
+      if (!mapContainer.current) {
+        console.error("MapHero Error: mapContainer ref is not available.");
+        return;
+      }
+      console.log("MapHero: mapContainer ref is available.");
+
+      if (map.current) {
+        console.warn("MapHero Warning: Map is already initialized.");
         return;
       }
 
-      // Set token right before initializing the map
+      console.log("MapHero: Setting Mapbox access token.");
       window.mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
-      map.current = new window.mapboxgl.Map({
-        container: mapContainer.current,
-        style: "mapbox://styles/mapbox/light-v11", // Use a light style for screen blend mode
-        projection: 'mercator', // Force 2D projection to prevent globe error
-        center: locations.brisbaneCBD.center as [number, number],
-        zoom: locations.brisbaneCBD.zoom,
-        interactive: false, // Disable user interaction
-        pitch: 45, // Tilted view
-        bearing: -17.6, // Starting bearing
-      });
+      try {
+        console.log("MapHero: Creating new Mapbox map instance...");
+        map.current = new window.mapboxgl.Map({
+          container: mapContainer.current,
+          style: "mapbox://styles/mapbox/light-v11",
+          projection: 'mercator',
+          center: locations.brisbaneCBD.center as [number, number],
+          zoom: locations.brisbaneCBD.zoom,
+          interactive: false,
+          pitch: 45,
+          bearing: -17.6,
+        });
+        console.log("MapHero: Mapbox map instance created successfully.");
 
-      const mapInstance = map.current;
+        const mapInstance = map.current;
 
-      mapInstance.on("load", () => {
-        // Animation sequence
-        const animate = async () => {
-          const locationKeys = Object.keys(locations);
-          let i = 0;
-          while (true) {
-            const key = locationKeys[i % locationKeys.length] as keyof typeof locations;
-            mapInstance.flyTo({
-              ...locations[key],
-              duration: 12000,
-              essential: true,
-              easing: (t: number) => t,
-            });
-            await new Promise((resolve) => setTimeout(resolve, 13000));
-            i++;
-          }
-        };
+        mapInstance.on("load", () => {
+          console.log("MapHero: Map 'load' event fired.");
+          // Animation sequence
+          const animate = async () => {
+            console.log("MapHero: Starting animation sequence.");
+            const locationKeys = Object.keys(locations);
+            let i = 0;
+            while (true) {
+              const key = locationKeys[i % locationKeys.length] as keyof typeof locations;
+              console.log(`MapHero: Animating to ${key}`);
+              mapInstance.flyTo({
+                ...locations[key],
+                duration: 12000,
+                essential: true,
+                easing: (t: number) => t,
+              });
+              await new Promise((resolve) => setTimeout(resolve, 13000));
+              i++;
+            }
+          };
 
-        animate();
+          animate();
+          console.log("MapHero: Animation started.");
 
-        // Add and remove markers
-        let markerIndex = 0;
-        setInterval(() => {
-          const markerData = markers[markerIndex % markers.length];
-          const el = document.createElement("div");
-          el.className = "marker";
-          const marker = new window.mapboxgl.Marker(el)
-            .setLngLat(markerData.lngLat as [number, number])
-            .addTo(mapInstance);
+          // Add and remove markers
+          let markerIndex = 0;
+          setInterval(() => {
+            const markerData = markers[markerIndex % markers.length];
+            // console.log(`MapHero: Adding marker for ${markerData.name}`);
+            const el = document.createElement("div");
+            el.className = "marker";
+            const marker = new window.mapboxgl.Marker(el)
+              .setLngLat(markerData.lngLat as [number, number])
+              .addTo(mapInstance);
 
-          setTimeout(() => marker.remove(), 5000); // Marker stays for 5 seconds
-          markerIndex++;
-        }, 3000); // New marker every 3 seconds
-      });
+            setTimeout(() => marker.remove(), 5000);
+            markerIndex++;
+          }, 3000);
+        });
 
-      mapInstance.on('error', (e) => {
-        console.error('Mapbox error:', e.error?.message);
-      });
+        mapInstance.on('error', (e) => {
+          console.error('Mapbox Map Error:', e.error?.message, e);
+        });
 
-      return () => mapInstance.remove();
+      } catch (error) {
+        console.error("MapHero CRITICAL: Failed to create Mapbox instance.", error);
+      }
     };
 
-    // Wait for mapboxgl to load
     const checkMapbox = setInterval(() => {
+      console.log("MapHero: Checking for window.mapboxgl...");
       if (window.mapboxgl) {
+        console.log("MapHero: window.mapboxgl found!");
         clearInterval(checkMapbox);
         initializeMap();
+      } else {
+        console.log("MapHero: window.mapboxgl not found yet.");
       }
-    }, 100);
+    }, 200);
 
-    // Cleanup on component unmount
     return () => {
+      console.log("MapHero: Cleanup function running.");
       clearInterval(checkMapbox);
       if (map.current) {
+        console.log("MapHero: Removing map instance.");
         map.current.remove();
         map.current = null;
       }
