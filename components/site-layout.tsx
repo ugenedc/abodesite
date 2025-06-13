@@ -15,6 +15,7 @@ import {
 } from "lucide-react"
 import ContactForm from "@/components/contact-form"
 import ScrollSection from "@/components/scroll-section"
+import Image from "next/image"
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -64,10 +65,14 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <div className="container mx-auto px-8 h-20 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Link href="/">
-              <span
-                className={`text-2xl font-medium tracking-wide transition-colors duration-300 ${navText}`}
-              >
-                abode<span className="text-orange-400">.</span>
+              <span className="block w-32 h-10 relative">
+                <Image
+                  src={pathname === "/" && !isScrolled ? "/logo-white.svg" : "/logo-color.svg"}
+                  alt="Abode Logo"
+                  fill
+                  style={{ objectFit: "contain" }}
+                  priority
+                />
               </span>
             </Link>
           </div>
