@@ -162,12 +162,12 @@ export default function HomePage() {
                 <div className="w-2 h-2 bg-gradient-to-r from-purple-400 to-orange-400 rounded-full mr-2"></div>
                 <span className="text-sm text-gray-600 font-medium">Planned Features</span>
               </div>
-              <h2 className="text-5xl font-light mb-8 text-gray-900 leading-tight">
+              <h2 className="text-5xl font-light mb-8 leading-tight text-white drop-shadow-lg">
                 Powerful tools for
                 <br />
-                <span className="text-gray-500">modern property management</span>
+                <span className="text-white/80 drop-shadow-md">modern property management</span>
               </h2>
-              <p className="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed font-light">
+              <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed font-light drop-shadow">
                 Everything you'll need to manage properties efficiently in one integrated platform
               </p>
             </div>

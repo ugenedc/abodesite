@@ -110,7 +110,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
               onClick={scrollToContact}
               className={`font-medium rounded-full px-6 shadow-lg transition-all duration-300 ${
                 pathname === "/" && !isScrolled
-                  ? "bg-white/30 text-orange-400"
+                  ? "bg-white text-orange-400"
                   : "bg-gradient-to-r from-purple-400 to-orange-400 hover:from-purple-500 hover:to-orange-500 text-white"
               }`}
             >
