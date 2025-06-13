@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ArrowRight } from "lucide-react"
 import { useState } from "react"
+import WaitlistForm from "./waitlist-form"
 
 export default function AnimatedHero() {
   const [email, setEmail] = useState("")
@@ -63,35 +64,9 @@ export default function AnimatedHero() {
             in one seamless ecosystem.
           </p>
 
-          {/* Waitlist Signup Form */}
+          {/* Waitlist Signup Form (replaced with WaitlistForm) */}
           <div className="max-w-xl mx-auto mb-16">
-            {!isSubmitted ? (
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <Input
-                    type="email"
-                    placeholder="Enter your email to join waitlist"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="w-full bg-white/20 border-white/30 text-white placeholder:text-white/70 rounded-xl h-14 font-light backdrop-blur-sm text-center text-lg pl-6"
-                  />
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="w-full bg-white hover:bg-white/90 text-gray-800 px-8 py-6 text-lg font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-                  >
-                    Join Waitlist
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </form>
-              </div>
-            ) : (
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-                <div className="text-white text-lg font-medium mb-2">🎉 You're on the list!</div>
-                <p className="text-white/80">We'll notify you as soon as Abode launches.</p>
-              </div>
-            )}
+            <WaitlistForm inputClass="w-full bg-white/20 border-white/30 text-white placeholder:text-white/70 rounded-xl h-14 font-light backdrop-blur-sm text-center text-lg pl-6" buttonClass="w-full bg-white hover:bg-white/90 text-gray-800 px-8 py-6 text-lg font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300" placeholder="Enter your email to join waitlist" />
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-12 text-white/90">
@@ -124,7 +99,8 @@ export default function AnimatedHero() {
 }
 
 // Badge component for the hero section
-function Badge({ children, className, ...props }) {
+type BadgeProps = React.PropsWithChildren<{ className?: string } & React.HTMLAttributes<HTMLSpanElement>>;
+function Badge({ children, className = "", ...props }: BadgeProps) {
   return (
     <span className={`px-4 py-1 text-sm font-medium rounded-full ${className}`} {...props}>
       {children}

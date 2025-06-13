@@ -16,6 +16,7 @@ import {
 import ContactForm from "@/components/contact-form"
 import ScrollSection from "@/components/scroll-section"
 import Image from "next/image"
+import WaitlistForm from "@/components/waitlist-form"
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -152,34 +153,12 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
           </ScrollSection>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center max-w-lg mx-auto">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault()
-                const emailInput = e.currentTarget.querySelector('input[type="email"]') as HTMLInputElement
-                const email = emailInput.value
-                if (email) {
-                  const subject = encodeURIComponent("New Waitlist Signup")
-                  const body = encodeURIComponent(`New signup for the Abode waitlist: ${email}`)
-                  window.location.href = `mailto:leon@leonhayes.com.au?subject=${subject}&body=${body}`
-                  emailInput.value = ""
-                }
-              }}
-              className="flex flex-col sm:flex-row gap-6 w-full"
-            >
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                className="bg-white/10 border-white/20 text-white placeholder:text-white/70 rounded-full h-14 font-light pl-6"
-                required
-              />
-              <Button
-                type="submit"
-                className="bg-white text-gray-900 hover:bg-gray-100 whitespace-nowrap rounded-full h-14 px-8 font-medium"
-              >
-                Join Waitlist
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </form>
+            <WaitlistForm
+              className="w-full sm:flex-row items-center"
+              inputClass="bg-white/10 border-white/20 text-white placeholder:text-white/70 rounded-full h-14 font-light pl-6 flex-grow"
+              buttonClass="bg-white text-gray-900 hover:bg-gray-100 whitespace-nowrap rounded-full h-14 px-8 font-medium flex-shrink-0"
+              placeholder="Enter your email"
+            />
           </div>
 
           <ScrollSection delay={800} blurAmount={2} fadeDirection="up">
