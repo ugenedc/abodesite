@@ -58,7 +58,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-400 via-purple-400 to-orange-300">
+    <div className="min-h-screen">
       <MapHero />
 
       {/* Solutions Section */}
