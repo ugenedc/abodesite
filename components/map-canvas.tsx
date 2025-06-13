@@ -11,7 +11,7 @@ const locations = {
   fortitudeValley: { center: [153.035, -27.458], zoom: 15.5 },
 }
 
-export default function MapCanvas() {
+export default function MapCanvas({ interactive = true }) {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const map = useRef<any>(null);
 
@@ -27,10 +27,21 @@ export default function MapCanvas() {
         projection: 'mercator',
         center: locations.brisbaneCBD.center as [number, number],
         zoom: locations.brisbaneCBD.zoom,
-        interactive: false,
         pitch: 45,
         bearing: -17.6,
+        interactive: interactive,
+        attributionControl: false,
       });
+
+      if (!interactive) {
+        map.current.boxZoom.disable();
+        map.current.doubleClickZoom.disable();
+        map.current.dragPan.disable();
+        map.current.dragRotate.disable();
+        map.current.keyboard.disable();
+        map.current.scrollZoom.disable();
+        map.current.touchZoomRotate.disable();
+      }
 
       const mapInstance = map.current;
 
@@ -50,7 +61,9 @@ export default function MapCanvas() {
             i++;
           }
         };
-        animate();
+        if (interactive) {
+          animate();
+        }
       });
 
       mapInstance.on('error', (e: any) => {
@@ -72,7 +85,7 @@ export default function MapCanvas() {
         map.current = null;
       }
     };
-  }, []);
+  }, [interactive]);
 
   return <div ref={mapContainer} className="absolute inset-0" />;
 } 

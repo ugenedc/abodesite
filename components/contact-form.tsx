@@ -73,9 +73,9 @@ export default function ContactForm() {
         <textarea
           id="message"
           name="message"
-          rows={4}
+          rows={6}
           required
-          className="mt-1 block w-full rounded-md border border-gray-200 shadow-sm focus:border-purple-400 focus:ring focus:ring-purple-200 focus:ring-opacity-50 px-3 py-2"
+          className="mt-1 block w-full rounded-md border border-gray-200 shadow-sm focus:border-purple-400 focus:ring focus:ring-purple-200 focus:ring-opacity-50 px-3 py-3"
         />
       </div>
       <button

@@ -47,7 +47,7 @@ export default function WaitlistForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className={`flex flex-col sm:flex-row items-start gap-4 ${className}`}>
+    <form onSubmit={handleSubmit} className={`flex flex-col gap-4 ${className}`}>
       <div className="flex-grow w-full">
         <input
           type="email"
