@@ -34,19 +34,8 @@ export default function AnimatedHero() {
       {/* Seamless animated gradient background */}
       <div className="animated-gradient absolute inset-0"></div>
 
-      {/* Subtle moving gradient overlays with improved colors */}
-      <div className="absolute inset-0 opacity-40">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-purple-600/30 via-pink-400/30 to-orange-300/30 animate-gradient-x"></div>
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-purple-500/30 via-pink-500/30 to-orange-400/30 animate-gradient-y"></div>
-      </div>
+      {/* Remove the old grid structure here */}
 
-      {/* Subtle background elements with improved colors */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-purple-300/20 to-pink-300/20 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-pink-300/20 to-purple-300/20 rounded-full blur-3xl animate-float-delayed"></div>
-      </div>
-
-      {/* Content */}
       <div className="relative z-10 container mx-auto px-8 text-center">
         <div className="max-w-4xl mx-auto">
           <Badge className="mb-6 inline-block bg-white/20 text-white border-white/20 rounded-full px-4 py-1 backdrop-blur-sm">

@@ -179,13 +179,11 @@ html {
   z-index: -1;
   background: linear-gradient(
     45deg,
-    #ffadad, /* Light Pink/Red */
-    #ffd6a5, /* Light Orange */
-    #caffbf, /* Light Green */
-    #9bf6ff, /* Light Blue */
-    #a0c4ff, /* Light Indigo */
-    #bdb2ff, /* Light Purple */
-    #ffc6ff  /* Light Pink */
+    #8B5CF6, /* Purple */
+    #EC4899, /* Pink */
+    #F97316, /* Orange */
+    #EC4899, /* Pink */
+    #8B5CF6  /* Purple */
   );
   background-size: 400% 400%;
   animation: gradient-shift 15s ease infinite;
