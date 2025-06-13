@@ -60,6 +60,30 @@ export default function HomePage() {
     <div className="min-h-screen bg-gradient-to-br from-pink-400 via-purple-400 to-orange-300">
       <AnimatedHero />
 
+      {/* Hero Waitlist Form */}
+      <div className="flex flex-col items-center justify-center mt-8">
+        <form
+          action="https://formspree.io/f/xblyowzq"
+          method="POST"
+          className="w-full max-w-md flex flex-col gap-6"
+        >
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email to join waitlist"
+            className="w-full rounded-xl border border-white/30 bg-white/20 text-white placeholder:text-white/70 h-14 font-light pl-6"
+            required
+          />
+          <button
+            type="submit"
+            className="w-full bg-white text-gray-900 hover:bg-gray-100 rounded-full h-14 px-8 font-medium shadow-lg transition-all duration-300"
+          >
+            Join Waitlist
+            <ArrowRight className="ml-2 h-4 w-4 inline" />
+          </button>
+        </form>
+      </div>
+
       {/* Solutions Section */}
       <section id="solutions" className="py-32 bg-white">
         <div className="container mx-auto px-8">
