@@ -26,7 +26,7 @@ import {
 import Link from "next/link"
 import ContactForm from "@/components/contact-form"
 import ScrollSection from "@/components/scroll-section"
-import AnimatedHero from "@/components/animated-hero"
+import MapHero from "@/components/map-hero"
 import { useEffect, useState } from "react"
 import WaitlistForm from "@/components/waitlist-form"
 
@@ -59,7 +59,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-400 via-purple-400 to-orange-300">
-      <AnimatedHero />
+      <MapHero />
 
       {/* Hero Waitlist Form */}
       <div className="flex flex-col items-center justify-center mt-8">
