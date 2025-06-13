@@ -28,61 +28,87 @@ export default function MapHero() {
   const map = useRef(null)
 
   useEffect(() => {
-    if (map.current || !mapContainer.current || !window.mapboxgl) return // Ensure mapbox is loaded
-
-    // Set token right before initializing the map to prevent race conditions
-    window.mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
-
-    map.current = new window.mapboxgl.Map({
-      container: mapContainer.current,
-      style: "mapbox://styles/mapbox/light-v11", // Use a light style for screen blend mode
-      projection: 'mercator', // Force 2D projection to prevent globe error
-      center: locations.brisbaneCBD.center as [number, number],
-      zoom: locations.brisbaneCBD.zoom,
-      interactive: false, // Disable user interaction
-      pitch: 45, // Tilted view
-      bearing: -17.6, // Starting bearing
-    })
-
-    const mapInstance = map.current
-
-    mapInstance.on("load", () => {
-      // Animation sequence
-      const animate = async () => {
-        const locationKeys = Object.keys(locations)
-        let i = 0
-        while (true) {
-          const key = locationKeys[i % locationKeys.length] as keyof typeof locations
-          mapInstance.flyTo({
-            ...locations[key],
-            duration: 12000,
-            essential: true,
-            easing: (t: number) => t,
-          })
-          await new Promise((resolve) => setTimeout(resolve, 13000))
-          i++
-        }
+    const initializeMap = () => {
+      if (map.current || !mapContainer.current || !window.mapboxgl) {
+        // If map is already initialized, or container isn't ready, or mapboxgl is not loaded, do nothing.
+        return;
       }
 
-      animate()
+      // Set token right before initializing the map
+      window.mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
-      // Add and remove markers
-      let markerIndex = 0
-      setInterval(() => {
-        const markerData = markers[markerIndex % markers.length]
-        const el = document.createElement("div")
-        el.className = "marker"
-        const marker = new window.mapboxgl.Marker(el)
-          .setLngLat(markerData.lngLat as [number, number])
-          .addTo(mapInstance)
+      map.current = new window.mapboxgl.Map({
+        container: mapContainer.current,
+        style: "mapbox://styles/mapbox/light-v11", // Use a light style for screen blend mode
+        projection: 'mercator', // Force 2D projection to prevent globe error
+        center: locations.brisbaneCBD.center as [number, number],
+        zoom: locations.brisbaneCBD.zoom,
+        interactive: false, // Disable user interaction
+        pitch: 45, // Tilted view
+        bearing: -17.6, // Starting bearing
+      });
 
-        setTimeout(() => marker.remove(), 5000) // Marker stays for 5 seconds
-        markerIndex++
-      }, 3000) // New marker every 3 seconds
-    })
+      const mapInstance = map.current;
 
-    return () => mapInstance.remove()
-  }, [])
+      mapInstance.on("load", () => {
+        // Animation sequence
+        const animate = async () => {
+          const locationKeys = Object.keys(locations);
+          let i = 0;
+          while (true) {
+            const key = locationKeys[i % locationKeys.length] as keyof typeof locations;
+            mapInstance.flyTo({
+              ...locations[key],
+              duration: 12000,
+              essential: true,
+              easing: (t: number) => t,
+            });
+            await new Promise((resolve) => setTimeout(resolve, 13000));
+            i++;
+          }
+        };
+
+        animate();
+
+        // Add and remove markers
+        let markerIndex = 0;
+        setInterval(() => {
+          const markerData = markers[markerIndex % markers.length];
+          const el = document.createElement("div");
+          el.className = "marker";
+          const marker = new window.mapboxgl.Marker(el)
+            .setLngLat(markerData.lngLat as [number, number])
+            .addTo(mapInstance);
+
+          setTimeout(() => marker.remove(), 5000); // Marker stays for 5 seconds
+          markerIndex++;
+        }, 3000); // New marker every 3 seconds
+      });
+
+      mapInstance.on('error', (e) => {
+        console.error('Mapbox error:', e.error?.message);
+      });
+
+      return () => mapInstance.remove();
+    };
+
+    // Wait for mapboxgl to load
+    const checkMapbox = setInterval(() => {
+      if (window.mapboxgl) {
+        clearInterval(checkMapbox);
+        initializeMap();
+      }
+    }, 100);
+
+    // Cleanup on component unmount
+    return () => {
+      clearInterval(checkMapbox);
+      if (map.current) {
+        map.current.remove();
+        map.current = null;
+      }
+    };
+  }, []);
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
