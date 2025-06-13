@@ -12,80 +12,71 @@ const locations = {
 }
 
 export default function MapCanvas({ interactive = true }) {
-  const mapContainer = useRef<HTMLDivElement | null>(null);
-  const map = useRef<any>(null);
+  const mapContainer = useRef<HTMLDivElement | null>(null)
+  const map = useRef<any>(null)
 
   useEffect(() => {
     const initializeMap = () => {
-      if (!mapContainer.current || map.current) return;
-
-      window.mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
-
-      map.current = new window.mapboxgl.Map({
-        container: mapContainer.current,
-        style: "mapbox://styles/mapbox/light-v11",
-        projection: 'mercator',
-        center: locations.brisbaneCBD.center as [number, number],
-        zoom: locations.brisbaneCBD.zoom,
-        pitch: 45,
-        bearing: -17.6,
-        interactive: interactive,
-        attributionControl: false,
-      });
-
-      if (!interactive) {
-        map.current.boxZoom.disable();
-        map.current.doubleClickZoom.disable();
-        map.current.dragPan.disable();
-        map.current.dragRotate.disable();
-        map.current.keyboard.disable();
-        map.current.scrollZoom.disable();
-        map.current.touchZoomRotate.disable();
+      console.log("Attempting to initialize map...")
+      if (map.current) {
+        console.log("Map already initialized.")
+        return
       }
 
-      const mapInstance = map.current;
+      if (!mapContainer.current) {
+        console.error("Map container is not available.")
+        return
+      }
 
-      mapInstance.on("load", () => {
-        const animate = async () => {
-          const locationKeys = Object.keys(locations);
-          let i = 0;
-          while (true) {
-            const key = locationKeys[i % locationKeys.length] as keyof typeof locations;
-            mapInstance.flyTo({
-              ...locations[key],
-              duration: 12000,
-              essential: true,
-              easing: (t: number) => t,
-            });
-            await new Promise((resolve) => setTimeout(resolve, 13000));
-            i++;
-          }
-        };
-        if (interactive) {
-          animate();
-        }
-      });
+      const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
+      console.log("Mapbox Token:", token ? `Token found (ends with ...${token.slice(-4)})` : "Token NOT found")
 
-      mapInstance.on('error', (e: any) => {
-        console.error('MapCanvas Render Error:', e.error?.message, e);
-      });
-    };
+      if (!token) {
+        console.error("Mapbox token is not configured.")
+        return
+      }
+
+      try {
+        window.mapboxgl.accessToken = token
+        map.current = new window.mapboxgl.Map({
+          container: mapContainer.current,
+          style: "mapbox://styles/mapbox/streets-v12", // Using a simpler default style for debugging
+          center: [-74.5, 40], // Default coords
+          zoom: 9, // Default zoom
+          interactive: interactive,
+        })
+        console.log("Map object created successfully.")
+
+        map.current.on("load", () => {
+          console.log("Map loaded successfully.")
+        })
+
+        map.current.on("error", (e: any) => {
+          console.error("A Mapbox error occurred:", e.error?.message, e)
+        })
+      } catch (error) {
+        console.error("Failed to initialize Mapbox map:", error)
+      }
+    }
 
     const checkMapbox = setInterval(() => {
+      console.log("Checking for window.mapboxgl...")
       if (window.mapboxgl) {
-        clearInterval(checkMapbox);
-        initializeMap();
+        console.log("window.mapboxgl found.")
+        clearInterval(checkMapbox)
+        initializeMap()
       }
-    }, 200);
+    }, 200)
 
     return () => {
-      clearInterval(checkMapbox);
+      console.log("Cleaning up MapCanvas component.")
+      clearInterval(checkMapbox)
       if (map.current) {
-        map.current.remove();
-        map.current = null;
+        map.current.remove()
+        map.current = null
       }
-    };
-  }, [interactive]);
+    }
+  }, [interactive])
 
-  return <div ref={mapContainer} className="absolute inset-0" />;
+  return <div ref={mapContainer} className="absolute inset-0" />
 } 
