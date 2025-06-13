@@ -47,28 +47,30 @@ export default function WaitlistForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className={`flex flex-col gap-4 ${className}`}>
-      <input
-        type="email"
-        name="email"
-        placeholder={placeholder}
-        className={`w-full rounded-xl border h-14 font-light px-4 ${inputClass}`}
-        required
-        disabled={loading}
-      />
+    <form onSubmit={handleSubmit} className={`flex items-start gap-4 ${className}`}>
+      <div className="flex-grow">
+        <input
+          type="email"
+          name="email"
+          placeholder={placeholder}
+          className={`w-full rounded-xl border h-14 font-light px-4 ${inputClass}`}
+          required
+          disabled={loading}
+        />
+        {error && <div className="text-red-500 text-xs mt-2 text-left">{error}</div>}
+      </div>
       <button
         type="submit"
-        className={`w-full rounded-xl h-14 font-medium shadow-lg transition-all duration-300 flex items-center justify-center gap-2 ${buttonClass}`}
+        className={`rounded-xl h-14 px-6 font-medium shadow-lg transition-all duration-300 flex items-center justify-center gap-2 flex-shrink-0 whitespace-nowrap ${buttonClass}`}
         disabled={loading}
       >
         {loading ? "..." : (
           <>
-            Join Waitlist
+            <span>Join Waitlist</span>
             <ArrowRight className="h-4 w-4" />
           </>
         )}
       </button>
-      {error && <div className="text-red-500 text-sm text-center">{error}</div>}
     </form>
   )
 } 

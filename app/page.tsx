@@ -406,13 +406,14 @@ export default function HomePage() {
                         </li>
                       ))}
                     </ul>
-                    <WaitlistForm
-                      className="w-full"
-                      successClassName="!bg-gradient-to-r !from-purple-400 !to-orange-400"
-                      inputClass="w-full !bg-white !border-gray-300 text-gray-900 placeholder:text-gray-500"
-                      buttonClass="!bg-gradient-to-r !from-purple-400 !to-orange-400 text-white"
-                      placeholder="Enter your email"
-                    />
+                    <div className="mt-8">
+                      <WaitlistForm
+                        className="flex-col"
+                        inputClass="bg-white/50 border-gray-200"
+                        buttonClass="bg-gradient-to-r from-purple-400 to-orange-400 text-white"
+                        placeholder="Enter your email"
+                      />
+                    </div>
                   </CardContent>
                 </Card>
               </ScrollSection>

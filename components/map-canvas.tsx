@@ -27,43 +27,51 @@ export default function MapCanvas() {
     const initializeMap = () => {
       if (!mapContainer.current || map.current) return
 
+      console.log("MapCanvas: Initializing map...");
       window.mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
-      map.current = new window.mapboxgl.Map({
-        container: mapContainer.current,
-        style: "mapbox://styles/mapbox/light-v11",
-        projection: 'mercator',
-        center: locations.brisbaneCBD.center as [number, number],
-        zoom: locations.brisbaneCBD.zoom,
-        interactive: false,
-        pitch: 45,
-        bearing: -17.6,
-      });
+      try {
+        map.current = new window.mapboxgl.Map({
+          container: mapContainer.current,
+          style: "mapbox://styles/mapbox/streets-v12", // TEMP: Use a known working style
+          projection: 'mercator',
+          center: locations.brisbaneCBD.center as [number, number],
+          zoom: locations.brisbaneCBD.zoom,
+          interactive: false,
+          pitch: 45,
+          bearing: -17.6,
+        });
+        console.log("MapCanvas: Map instance created successfully.");
 
-      const mapInstance = map.current;
+        const mapInstance = map.current;
 
-      mapInstance.on("load", () => {
-        const animate = async () => {
-          const locationKeys = Object.keys(locations);
-          let i = 0;
-          while (true) {
-            const key = locationKeys[i % locationKeys.length] as keyof typeof locations;
-            mapInstance.flyTo({
-              ...locations[key],
-              duration: 12000,
-              essential: true,
-              easing: (t: number) => t,
-            });
-            await new Promise((resolve) => setTimeout(resolve, 13000));
-            i++;
-          }
-        };
-        animate();
-      });
+        mapInstance.on("load", () => {
+          console.log("MapCanvas: 'load' event fired. Starting animation.");
+          const animate = async () => {
+            const locationKeys = Object.keys(locations);
+            let i = 0;
+            while (true) {
+              const key = locationKeys[i % locationKeys.length] as keyof typeof locations;
+              mapInstance.flyTo({
+                ...locations[key],
+                duration: 12000,
+                essential: true,
+                easing: (t: number) => t,
+              });
+              await new Promise((resolve) => setTimeout(resolve, 13000));
+              i++;
+            }
+          };
+          animate();
+        });
 
-      mapInstance.on('error', (e: any) => {
-        console.error('MapCanvas Map Error:', e.error?.message, e);
-      });
+        mapInstance.on('error', (e: any) => {
+          console.error('MapCanvas Render Error:', e.error?.message, e);
+        });
+
+      } catch (error) {
+        console.error("MapCanvas CRITICAL: Failed to create map instance.", error);
+      }
     };
 
     const checkMapbox = setInterval(() => {
