@@ -34,8 +34,8 @@ export default function WaitlistForm({ className = "", inputClass = "", buttonCl
   if (submitted) {
     return (
       <div className={`rounded-xl bg-white/20 border border-white/30 p-6 text-center shadow-lg ${className}`}>
-        <div className="text-2xl mb-2 text-gray-800">🎉 You're on the list!</div>
-        <div className="text-gray-700">We'll notify you as soon as Abode launches.</div>
+        <div className="text-2xl mb-2 text-white">🎉 You're on the list!</div>
+        <div className="text-white/90">We'll notify you as soon as Abode launches.</div>
       </div>
     )
   }
