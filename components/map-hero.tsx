@@ -1,142 +1,17 @@
 // @ts-nocheck
 "use client"
 
-import React, { useEffect, useRef } from "react"
-// We load this from the CDN, so no local import is needed.
-// import "mapbox-gl/dist/mapbox-gl.css" 
+import React from "react"
 import WaitlistForm from "./waitlist-form"
 import { Badge } from "@/components/ui/badge"
-
-const locations = {
-  brisbaneCBD: { center: [153.026, -27.4705], zoom: 14.5 },
-  newFarm: { center: [153.042, -27.468], zoom: 15 },
-  southBank: { center: [153.02, -27.476], zoom: 15.2 },
-  westEnd: { center: [153.01, -27.48], zoom: 14.8 },
-  fortitudeValley: { center: [153.035, -27.458], zoom: 15.5 },
-}
-
-const markers = [
-  { lngLat: [153.026, -27.4705], name: "Central Station" },
-  { lngLat: [153.042, -27.468], name: "New Farm Park" },
-  { lngLat: [153.02, -27.476], name: "South Bank Parklands" },
-  { lngLat: [153.01, -27.48], name: "Davies Park" },
-  { lngLat: [153.035, -27.458], name: "James Street" },
-]
+import MapCanvas from "./map-canvas"
 
 export default function MapHero() {
-  const mapContainer = useRef(null)
-  const map = useRef(null)
-
-  useEffect(() => {
-    console.log("MapHero: useEffect triggered.");
-
-    const initializeMap = () => {
-      console.log("MapHero: initializeMap function called.");
-
-      if (!mapContainer.current) {
-        console.error("MapHero Error: mapContainer ref is not available.");
-        return;
-      }
-      console.log("MapHero: mapContainer ref is available.");
-
-      if (map.current) {
-        console.warn("MapHero Warning: Map is already initialized.");
-        return;
-      }
-
-      console.log("MapHero: Setting Mapbox access token.");
-      window.mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
-
-      try {
-        console.log("MapHero: Creating new Mapbox map instance...");
-        map.current = new window.mapboxgl.Map({
-          container: mapContainer.current,
-          style: "mapbox://styles/mapbox/light-v11",
-          projection: 'mercator',
-          center: locations.brisbaneCBD.center as [number, number],
-          zoom: locations.brisbaneCBD.zoom,
-          interactive: false,
-          pitch: 45,
-          bearing: -17.6,
-        });
-        console.log("MapHero: Mapbox map instance created successfully.");
-
-        const mapInstance = map.current;
-
-        mapInstance.on("load", () => {
-          console.log("MapHero: Map 'load' event fired.");
-          // Animation sequence
-          const animate = async () => {
-            console.log("MapHero: Starting animation sequence.");
-            const locationKeys = Object.keys(locations);
-            let i = 0;
-            while (true) {
-              const key = locationKeys[i % locationKeys.length] as keyof typeof locations;
-              console.log(`MapHero: Animating to ${key}`);
-              mapInstance.flyTo({
-                ...locations[key],
-                duration: 12000,
-                essential: true,
-                easing: (t: number) => t,
-              });
-              await new Promise((resolve) => setTimeout(resolve, 13000));
-              i++;
-            }
-          };
-
-          animate();
-          console.log("MapHero: Animation started.");
-
-          // Add and remove markers
-          let markerIndex = 0;
-          setInterval(() => {
-            const markerData = markers[markerIndex % markers.length];
-            // console.log(`MapHero: Adding marker for ${markerData.name}`);
-            const el = document.createElement("div");
-            el.className = "marker";
-            const marker = new window.mapboxgl.Marker(el)
-              .setLngLat(markerData.lngLat as [number, number])
-              .addTo(mapInstance);
-
-            setTimeout(() => marker.remove(), 5000);
-            markerIndex++;
-          }, 3000);
-        });
-
-        mapInstance.on('error', (e) => {
-          console.error('Mapbox Map Error:', e.error?.message, e);
-        });
-
-      } catch (error) {
-        console.error("MapHero CRITICAL: Failed to create Mapbox instance.", error);
-      }
-    };
-
-    const checkMapbox = setInterval(() => {
-      console.log("MapHero: Checking for window.mapboxgl...");
-      if (window.mapboxgl) {
-        console.log("MapHero: window.mapboxgl found!");
-        clearInterval(checkMapbox);
-        initializeMap();
-      } else {
-        console.log("MapHero: window.mapboxgl not found yet.");
-      }
-    }, 200);
-
-    return () => {
-      console.log("MapHero: Cleanup function running.");
-      clearInterval(checkMapbox);
-      if (map.current) {
-        console.log("MapHero: Removing map instance.");
-        map.current.remove();
-        map.current = null;
-      }
-    };
-  }, []);
-
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-pink-400 via-purple-400 to-orange-300 animate-gradient-shift">
-      <div ref={mapContainer} className="absolute inset-0 mix-blend-mode-screen" />
+      <div className="absolute inset-0 mix-blend-mode-screen">
+        <MapCanvas />
+      </div>
 
       <div className="relative z-10 container mx-auto px-8 text-center">
         <div className="max-w-4xl mx-auto">
