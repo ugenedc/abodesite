@@ -42,7 +42,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   }
 
   const navBg = pathname === "/" && !isScrolled
-    ? "bg-blue-500/20"
+    ? "bg-white/30 backdrop-blur-md"
     : "bg-white/95 backdrop-blur-md shadow-sm"
   const navText = pathname === "/" && !isScrolled
     ? "text-white"
