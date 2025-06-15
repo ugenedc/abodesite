@@ -152,13 +152,15 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
             </div>
           </ScrollSection>
 
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center max-w-lg mx-auto">
-            <WaitlistForm
-              className="w-full sm:flex-row items-center"
-              inputClass="bg-white/10 border-white/20 text-white placeholder:text-white/70 rounded-full h-14 font-light pl-6 flex-grow"
-              buttonClass="bg-white text-gray-900 hover:bg-gray-100 whitespace-nowrap rounded-full h-14 px-8 font-medium flex-shrink-0"
-              placeholder="Enter your email"
-            />
+          <div className="flex w-full justify-center">
+            <div className="flex flex-row gap-4 w-full max-w-lg">
+              <WaitlistForm
+                className="w-full flex sm:flex-row items-center gap-4"
+                inputClass="bg-white/10 border-white/20 text-white placeholder:text-white/70 rounded-full h-14 font-light pl-6 flex-grow"
+                buttonClass="bg-white text-gray-900 hover:bg-gray-100 whitespace-nowrap rounded-full h-14 px-8 font-medium flex-shrink-0"
+                placeholder="Enter your email"
+              />
+            </div>
           </div>
 
           <ScrollSection delay={800} blurAmount={2} fadeDirection="up">

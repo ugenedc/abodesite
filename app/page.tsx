@@ -317,12 +317,12 @@ export default function HomePage() {
                 <div className="w-2 h-2 bg-gradient-to-r from-purple-400 to-orange-400 rounded-full mr-2"></div>
                 <span className="text-sm text-gray-600 font-medium">Early Adopter Benefits</span>
               </div>
-              <h2 className="text-5xl font-light mb-8 text-gray-900 leading-tight">
+              <h2 className="text-5xl font-light mb-8 leading-tight text-white drop-shadow-lg">
                 Join our waitlist for
                 <br />
-                <span className="text-gray-500">exclusive launch benefits</span>
+                <span className="text-white/80 drop-shadow-md">exclusive launch benefits</span>
               </h2>
-              <p className="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed font-light">
+              <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed font-light drop-shadow">
                 Be among the first to experience Abode and enjoy special introductory pricing and perks
               </p>
             </div>
@@ -408,9 +408,9 @@ export default function HomePage() {
                     </ul>
                     <div className="mt-8">
                       <WaitlistForm
-                        className="flex-col"
-                        inputClass="bg-white/50 border-gray-200"
-                        buttonClass="bg-gradient-to-r from-purple-400 to-orange-400 text-white"
+                        className="flex flex-col space-y-3"
+                        inputClass="bg-gray-50 border-gray-200/80 rounded-lg h-12 text-center w-full focus:ring-2 focus:ring-purple-300/50 focus:border-purple-400"
+                        buttonClass="bg-gradient-to-r from-purple-400 to-orange-400 text-white rounded-lg h-12 w-full"
                         placeholder="Enter your email"
                       />
                     </div>

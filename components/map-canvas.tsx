@@ -78,5 +78,5 @@ export default function MapCanvas({ interactive = true }) {
     }
   }, [interactive])
 
-  return <div ref={mapContainer} className="absolute inset-0" />
+  return <div ref={mapContainer} style={{ width: '100%', height: '100%' }} className="absolute inset-0" />
 } 
