@@ -37,7 +37,7 @@ export default function AnimatedHero() {
         <MapCanvas
           interactive={false}
           style="mapbox://styles/mapbox/light-v11"
-          className="mix-blend-multiply opacity-80"
+          className="mix-blend-multiply opacity-[.85]"
           animate={true}
           animateMarkers={true}
         />
