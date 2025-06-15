@@ -59,12 +59,12 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-pink-400 via-purple-400 to-orange-300">
       {pathname === "/" && (
         <MapCanvas
           interactive={false}
           style="mapbox://styles/mapbox/light-v11"
-          className="mix-blend-luminosity"
+          className="opacity-40"
           animate={true}
           animateMarkers={true}
         />
