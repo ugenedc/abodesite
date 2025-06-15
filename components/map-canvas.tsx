@@ -15,9 +15,11 @@ export default function MapCanvas({
   interactive = true,
   className,
   style = "mapbox://styles/mapbox/streets-v12",
+  animate = false,
 }) {
   const mapContainer = useRef<HTMLDivElement | null>(null)
   const map = useRef<any>(null)
+  const animationInterval = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     const initializeMap = () => {
@@ -53,6 +55,32 @@ export default function MapCanvas({
 
         map.current.on("load", () => {
           console.log("Map loaded successfully.")
+          if (animate) {
+            const locationKeys = Object.keys(locations)
+            let currentKey: string | null = null
+
+            const panToRandom = () => {
+              let nextLocationKey: string
+              do {
+                nextLocationKey = locationKeys[Math.floor(Math.random() * locationKeys.length)]
+              } while (nextLocationKey === currentKey) // Don't pick the same one twice in a row
+
+              currentKey = nextLocationKey
+              const nextLocation = locations[nextLocationKey]
+
+              map.current.flyTo({
+                center: nextLocation.center,
+                zoom: nextLocation.zoom,
+                duration: 15000, // 15 seconds for a slow pan
+                essential: true, // Prevents users from interrupting the animation
+              })
+            }
+
+            // Pan to the first location immediately
+            panToRandom()
+            // Then pan to a new location every 20 seconds
+            animationInterval.current = setInterval(panToRandom, 20000)
+          }
         })
 
         map.current.on("error", (e: any) => {
@@ -75,12 +103,15 @@ export default function MapCanvas({
     return () => {
       console.log("Cleaning up MapCanvas component.")
       clearInterval(checkMapbox)
+      if (animationInterval.current) {
+        clearInterval(animationInterval.current)
+      }
       if (map.current) {
         map.current.remove()
         map.current = null
       }
     }
-  }, [interactive, style])
+  }, [interactive, style, animate])
 
   return <div ref={mapContainer} style={{ width: "100%", height: "100%" }} className={`absolute inset-0 ${className}`} />
 } 
