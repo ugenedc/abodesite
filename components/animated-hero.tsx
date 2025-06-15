@@ -36,8 +36,8 @@ export default function AnimatedHero() {
       <div className="absolute inset-0 z-0 bg-gradient-to-br from-pink-400 via-purple-400 to-orange-300">
         <MapCanvas
           interactive={false}
-          style="mapbox://styles/mapbox/dark-v11"
-          className="mix-blend-screen opacity-70"
+          style="mapbox://styles/mapbox/light-v11"
+          className="mix-blend-multiply opacity-80"
           animate={true}
           animateMarkers={true}
         />
