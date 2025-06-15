@@ -1,56 +1,86 @@
 import { sanityClient } from "@/lib/sanity";
 import { PortableText } from "@portabletext/react";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
-import { notFound } from "next/navigation";
+import { VT323 } from "next/font/google";
+import Image from "next/image";
+import { urlFor } from "@/lib/sanity-image";
+
+export const revalidate = 30; // revalidate at most every 30 seconds
+
+const dateFont = VT323({ weight: "400", subsets: ["latin"] });
 
 interface Post {
-  _id: string;
   title: string;
-  slug: { current: string };
+  _id: string;
+  slug: {
+    current: string;
+  };
   publishedAt: string;
   body: any;
+  mainImage: any;
 }
 
-async function getPost(slug: string): Promise<Post | null> {
-  const post = await sanityClient.fetch(
-    `*[_type == "post" && slug.current == $slug][0]{
-      _id, title, slug, publishedAt, body
-    }`,
-    { slug }
-  );
-  return post;
+async function getPost(slug: string) {
+  const query = `*[_type == "post" && slug.current == "${slug}"][0] {
+    title,
+    _id,
+    slug,
+    publishedAt,
+    body,
+    mainImage
+  }`;
+  const data = await sanityClient.fetch(query);
+  return data;
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = await getPost(params.slug);
+export default async function PostPage({ params }: { params: { slug: string } }) {
+  const post: Post = await getPost(params.slug);
 
   if (!post) {
-    notFound();
+    return <div>Post not found</div>;
   }
 
+  const portableTextComponents = {
+    types: {
+      image: ({ value }: { value: any }) => (
+        <Image
+          src={urlFor(value).url()}
+          alt="post image"
+          width={800}
+          height={400}
+          className="rounded-lg my-8"
+        />
+      ),
+    },
+  };
+
   return (
-    <div className="min-h-screen bg-white py-24">
-      <div className="container mx-auto px-4 max-w-3xl">
-        <div className="mb-12">
-          <Link href="/blog" className="inline-flex items-center text-gray-500 hover:text-gray-900 transition">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Blog
-          </Link>
-        </div>
-        <article>
-          <h1 className="text-5xl font-serif font-bold mb-4 text-gray-900">{post.title}</h1>
-          <p className="text-gray-500 mb-8 text-sm">
-            {new Date(post.publishedAt).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </p>
-          <div className="prose prose-lg prose-purple max-w-none">
-            <PortableText value={post.body} />
+    <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
+      <header className="pt-6 xl:pb-6">
+        <div className="space-y-1 text-center">
+          <div className="space-y-10">
+            <div>
+              <p className="text-base font-medium leading-6 text-teal-500">
+                {new Date(post.publishedAt).toISOString().split("T")[0]}
+              </p>
+            </div>
           </div>
-        </article>
+
+          <div>
+            <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14">
+              {post.title}
+            </h1>
+          </div>
+        </div>
+      </header>
+      <div className="divide-y divide-gray-200 pb-7 dark:divide-gray-700 xl:divide-y-0">
+        <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
+          <div className="prose max-w-none pt-10 pb-8 dark:prose-invert prose-lg">
+            <PortableText
+              value={post.body}
+              components={portableTextComponents}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
