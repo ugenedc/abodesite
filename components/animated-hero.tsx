@@ -56,7 +56,7 @@ export default function AnimatedHero() {
 
           {/* Waitlist Signup Form (replaced with WaitlistForm) */}
           <div className="max-w-xl mx-auto mb-20">
-            <WaitlistForm inputClass="w-full bg-white/20 border-white/30 text-white placeholder:text-white/70 rounded-xl h-14 font-light backdrop-blur-sm text-center text-lg pl-6" buttonClass="w-full bg-white hover:bg-white/90 text-gray-800 px-8 py-6 text-lg font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300" placeholder="Enter your email to join waitlist" />
+            <WaitlistForm className="flex flex-col space-y-3" inputClass="w-full bg-white/20 border-white/30 text-white placeholder:text-white/70 rounded-xl h-14 font-light backdrop-blur-sm text-center text-lg pl-6" buttonClass="w-full bg-white hover:bg-white/90 text-gray-800 px-8 py-6 text-lg font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300" placeholder="Enter your email to join waitlist" />
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-12 text-white/90">
