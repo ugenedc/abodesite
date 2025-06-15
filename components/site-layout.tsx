@@ -64,8 +64,8 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <div className="absolute inset-0 z-0">
           <MapCanvas
             interactive={false}
-            style="mapbox://styles/mapbox/light-v11"
-            className="mix-blend-overlay opacity-60"
+            style="mapbox://styles/mapbox/dark-v11"
+            className="mix-blend-screen opacity-70"
             animate={true}
             animateMarkers={true}
           />

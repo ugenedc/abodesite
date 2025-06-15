@@ -1,7 +1,7 @@
 // @ts-nocheck
 "use client"
 
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 const locations = {
   brisbaneCBD: { center: [153.026, -27.4705], zoom: 14.5 },
@@ -22,6 +22,7 @@ export default function MapCanvas({
   const map = useRef<any>(null)
   const animationInterval = useRef<NodeJS.Timeout | null>(null)
   const markerInterval = useRef<NodeJS.Timeout | null>(null)
+  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
     const initializeMap = () => {
@@ -48,15 +49,16 @@ export default function MapCanvas({
         window.mapboxgl.accessToken = token
         map.current = new window.mapboxgl.Map({
           container: mapContainer.current,
-          style: style, // Using a simpler default style for debugging
-          center: [133.7751, -25.2744], // Australia center
-          zoom: 3, // Default zoom
+          style: style,
+          center: [153.026, -27.4705], // Brisbane CBD
+          zoom: 12, 
           interactive: interactive,
         })
         console.log("Map object created successfully.")
 
         map.current.on("load", () => {
           console.log("Map loaded successfully.")
+          setIsLoaded(true)
           if (animate) {
             const locationKeys = Object.keys(locations)
             let currentKey: string | null = null
@@ -80,8 +82,8 @@ export default function MapCanvas({
 
             // Pan to the first location immediately
             panToRandom()
-            // Then pan to a new location every 20 seconds
-            animationInterval.current = setInterval(panToRandom, 20000)
+            // Then pan to a new location every 16 seconds
+            animationInterval.current = setInterval(panToRandom, 16000)
           }
 
           if (animateMarkers) {
@@ -135,5 +137,13 @@ export default function MapCanvas({
     }
   }, [interactive, style, animate, animateMarkers])
 
-  return <div ref={mapContainer} style={{ width: "100%", height: "100%" }} className={`absolute inset-0 ${className}`} />
+  return (
+    <div
+      ref={mapContainer}
+      style={{ width: "100%", height: "100%" }}
+      className={`absolute inset-0 transition-opacity duration-1000 ease-in ${className} ${
+        isLoaded ? "opacity-100" : "opacity-0"
+      }`}
+    />
+  )
 } 
