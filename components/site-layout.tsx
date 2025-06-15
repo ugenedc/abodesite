@@ -17,6 +17,7 @@ import ContactForm from "@/components/contact-form"
 import ScrollSection from "@/components/scroll-section"
 import Image from "next/image"
 import WaitlistForm from "@/components/waitlist-form"
+import MapCanvas from "./map-canvas"
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -58,7 +59,16 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-400 via-purple-400 to-orange-300">
+    <div className="min-h-screen">
+      {pathname === "/" && (
+        <MapCanvas
+          interactive={false}
+          style="mapbox://styles/mapbox/light-v11"
+          className="mix-blend-luminosity"
+          animate={true}
+          animateMarkers={true}
+        />
+      )}
       {/* Dynamic Header */}
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${navBg}`}
