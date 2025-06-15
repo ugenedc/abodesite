@@ -8,6 +8,7 @@ import { ArrowRight } from "lucide-react"
 import { useState } from "react"
 import WaitlistForm from "./waitlist-form"
 import { Badge } from "@/components/ui/badge"
+import MapCanvas from "./map-canvas"
 
 export default function AnimatedHero() {
   const [email, setEmail] = useState("")
@@ -32,8 +33,15 @@ export default function AnimatedHero() {
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Remove the old grid structure here */}
-
+      <div className="absolute inset-0 z-0 bg-gradient-to-br from-pink-400 via-purple-400 to-orange-300">
+        <MapCanvas
+          interactive={false}
+          style="mapbox://styles/mapbox/dark-v11"
+          className="mix-blend-screen opacity-70"
+          animate={true}
+          animateMarkers={true}
+        />
+      </div>
       <div className="relative z-10 container mx-auto px-8 text-center">
         <div className="max-w-4xl mx-auto">
           <Badge className="mb-6 inline-block bg-white/20 text-white border-white/20 rounded-full px-4 py-1 backdrop-blur-sm">

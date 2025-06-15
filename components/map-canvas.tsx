@@ -82,8 +82,8 @@ export default function MapCanvas({
 
             // Pan to the first location immediately
             panToRandom()
-            // Then pan to a new location every 16 seconds
-            animationInterval.current = setInterval(panToRandom, 16000)
+            // Then pan to a new location every 15 seconds (matching duration)
+            animationInterval.current = setInterval(panToRandom, 15000)
           }
 
           if (animateMarkers) {

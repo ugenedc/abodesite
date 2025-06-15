@@ -17,7 +17,6 @@ import ContactForm from "@/components/contact-form"
 import ScrollSection from "@/components/scroll-section"
 import Image from "next/image"
 import WaitlistForm from "@/components/waitlist-form"
-import MapCanvas from "./map-canvas"
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -59,141 +58,128 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   }
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-pink-400 via-purple-400 to-orange-300">
-      {pathname === "/" && (
-        <div className="absolute inset-0 z-0">
-          <MapCanvas
-            interactive={false}
-            style="mapbox://styles/mapbox/dark-v11"
-            className="mix-blend-screen opacity-70"
-            animate={true}
-            animateMarkers={true}
-          />
-        </div>
-      )}
-      <div className="relative z-10">
-        {/* Dynamic Header */}
-        <header
-          className={`fixed top-0 w-full z-50 transition-all duration-300 ${navBg}`}
-        >
-          <div className="container mx-auto px-8 h-20 flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <Link href="/">
-                <span className="block w-32 h-10 relative">
-                  <Image
-                    src={pathname === "/" && !isScrolled ? "/logo-white.svg" : "/logo-color.svg"}
-                    alt="Abode Logo"
-                    fill
-                    style={{ objectFit: "contain" }}
-                    priority
-                  />
-                </span>
-              </Link>
-            </div>
-
-            <nav className="hidden md:flex items-center space-x-12">
-              <Link
-                href="/#features"
-                className={`transition-all duration-300 ${navText}`}
-              >
-                Features
-              </Link>
-              <Link
-                href="/#solutions"
-                className={`transition-all duration-300 ${navText}`}
-              >
-                Solutions
-              </Link>
-              <Link
-                href="/#pricing"
-                className={`transition-all duration-300 ${navText}`}
-              >
-                Pricing
-              </Link>
-              <Link
-                href="/blog"
-                className={`transition-all duration-300 ${navText}`}
-              >
-                Blog
-              </Link>
-              <button
-                onClick={scrollToContact}
-                className={`transition-all duration-300 ${navText}`}
-              >
-                Contact
-              </button>
-            </nav>
-
-            <div className="flex items-center space-x-6">
-              <Button
-                onClick={scrollToContact}
-                className={`font-medium rounded-full px-6 shadow-lg transition-all duration-300 ${
-                  pathname === "/" && !isScrolled
-                    ? "bg-white text-orange-400"
-                    : "bg-gradient-to-r from-purple-400 to-orange-400 hover:from-purple-500 hover:to-orange-500 text-white"
-                }`}
-              >
-                Join Waitlist
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className={`md:hidden rounded-full transition-all duration-300 ${navText}`}
-              >
-                <Menu className="h-5 w-5" />
-              </Button>
-            </div>
-          </div>
-        </header>
-
-        {/* Add top padding equal to nav height (h-20 = 5rem = 80px) */}
-        <main className="pt-20 md:pt-20">{children}</main>
-
-        {/* Footer CTA */}
-        <section className="py-24 bg-gray-900 text-white">
-          <div className="container mx-auto px-8">
-            <ScrollSection blurAmount={4} fadeDirection="up">
-              <div className="text-center mb-20">
-                <h2 className="text-5xl font-light mb-8 leading-tight">
-                  Join the Abode waitlist
-                  <br />
-                  <span className="text-gray-500">and be the first to know when we launch</span>
-                </h2>
-                <p className="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed font-light">
-                  Get exclusive access to early bird pricing and special features.
-                </p>
-              </div>
-            </ScrollSection>
-
-            <div className="flex w-full justify-center">
-              <div className="flex flex-row gap-4 w-full max-w-lg">
-                <WaitlistForm
-                  className="w-full flex sm:flex-row items-center gap-4"
-                  inputClass="bg-white/10 border-white/20 text-white placeholder:text-white/70 rounded-full h-14 font-light pl-6 flex-grow"
-                  buttonClass="bg-white text-gray-900 hover:bg-gray-100 whitespace-nowrap rounded-full h-14 px-8 font-medium flex-shrink-0"
-                  placeholder="Enter your email"
+    <div className="min-h-screen">
+      {/* Dynamic Header */}
+      <header
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${navBg}`}
+      >
+        <div className="container mx-auto px-8 h-20 flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <Link href="/">
+              <span className="block w-32 h-10 relative">
+                <Image
+                  src={pathname === "/" && !isScrolled ? "/logo-white.svg" : "/logo-color.svg"}
+                  alt="Abode Logo"
+                  fill
+                  style={{ objectFit: "contain" }}
+                  priority
                 />
-              </div>
-            </div>
-
-            <ScrollSection delay={800} blurAmount={2} fadeDirection="up">
-              <div className="mt-16 text-center max-w-2xl mx-auto">
-                <p className="text-gray-500 leading-relaxed">
-                  By joining the waitlist, you agree to our{" "}
-                  <Link href="#" className="text-white hover:underline">
-                    Terms of Service
-                  </Link>{" "}
-                  and{" "}
-                  <Link href="#" className="text-white hover:underline">
-                    Privacy Policy
-                  </Link>
-                  .
-                </p>
-              </div>
-            </ScrollSection>
+              </span>
+            </Link>
           </div>
-        </section>
-      </div>
+
+          <nav className="hidden md:flex items-center space-x-12">
+            <Link
+              href="/#features"
+              className={`transition-all duration-300 ${navText}`}
+            >
+              Features
+            </Link>
+            <Link
+              href="/#solutions"
+              className={`transition-all duration-300 ${navText}`}
+            >
+              Solutions
+            </Link>
+            <Link
+              href="/#pricing"
+              className={`transition-all duration-300 ${navText}`}
+            >
+              Pricing
+            </Link>
+            <Link
+              href="/blog"
+              className={`transition-all duration-300 ${navText}`}
+            >
+              Blog
+            </Link>
+            <button
+              onClick={scrollToContact}
+              className={`transition-all duration-300 ${navText}`}
+            >
+              Contact
+            </button>
+          </nav>
+
+          <div className="flex items-center space-x-6">
+            <Button
+              onClick={scrollToContact}
+              className={`font-medium rounded-full px-6 shadow-lg transition-all duration-300 ${
+                pathname === "/" && !isScrolled
+                  ? "bg-white text-orange-400"
+                  : "bg-gradient-to-r from-purple-400 to-orange-400 hover:from-purple-500 hover:to-orange-500 text-white"
+              }`}
+            >
+              Join Waitlist
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className={`md:hidden rounded-full transition-all duration-300 ${navText}`}
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
+          </div>
+        </div>
+      </header>
+
+      {/* Add top padding equal to nav height (h-20 = 5rem = 80px) */}
+      <main>{children}</main>
+
+      {/* Footer CTA */}
+      <section className="py-24 bg-gray-900 text-white">
+        <div className="container mx-auto px-8">
+          <ScrollSection blurAmount={4} fadeDirection="up">
+            <div className="text-center mb-20">
+              <h2 className="text-5xl font-light mb-8 leading-tight">
+                Join the Abode waitlist
+                <br />
+                <span className="text-gray-500">and be the first to know when we launch</span>
+              </h2>
+              <p className="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed font-light">
+                Get exclusive access to early bird pricing and special features.
+              </p>
+            </div>
+          </ScrollSection>
+
+          <div className="flex w-full justify-center">
+            <div className="flex flex-row gap-4 w-full max-w-lg">
+              <WaitlistForm
+                className="w-full flex sm:flex-row items-center gap-4"
+                inputClass="bg-white/10 border-white/20 text-white placeholder:text-white/70 rounded-full h-14 font-light pl-6 flex-grow"
+                buttonClass="bg-white text-gray-900 hover:bg-gray-100 whitespace-nowrap rounded-full h-14 px-8 font-medium flex-shrink-0"
+                placeholder="Enter your email"
+              />
+            </div>
+          </div>
+
+          <ScrollSection delay={800} blurAmount={2} fadeDirection="up">
+            <div className="mt-16 text-center max-w-2xl mx-auto">
+              <p className="text-gray-500 leading-relaxed">
+                By joining the waitlist, you agree to our{" "}
+                <Link href="#" className="text-white hover:underline">
+                  Terms of Service
+                </Link>{" "}
+                and{" "}
+                <Link href="#" className="text-white hover:underline">
+                  Privacy Policy
+                </Link>
+                .
+              </p>
+            </div>
+          </ScrollSection>
+        </div>
+      </section>
     </div>
   )
 } 
