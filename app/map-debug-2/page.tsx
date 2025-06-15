@@ -8,8 +8,9 @@ export default function MapDebugPage() {
       <MapCanvas
         interactive={false}
         style="mapbox://styles/mapbox/light-v11"
-        className="mix-blend-overlay"
+        className="mix-blend-luminosity"
         animate={true}
+        animateMarkers={true}
       />
     </div>
   )

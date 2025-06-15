@@ -16,10 +16,12 @@ export default function MapCanvas({
   className,
   style = "mapbox://styles/mapbox/streets-v12",
   animate = false,
+  animateMarkers = false,
 }) {
   const mapContainer = useRef<HTMLDivElement | null>(null)
   const map = useRef<any>(null)
   const animationInterval = useRef<NodeJS.Timeout | null>(null)
+  const markerInterval = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     const initializeMap = () => {
@@ -47,8 +49,8 @@ export default function MapCanvas({
         map.current = new window.mapboxgl.Map({
           container: mapContainer.current,
           style: style, // Using a simpler default style for debugging
-          center: [-74.5, 40], // Default coords
-          zoom: 9, // Default zoom
+          center: [133.7751, -25.2744], // Australia center
+          zoom: 3, // Default zoom
           interactive: interactive,
         })
         console.log("Map object created successfully.")
@@ -81,6 +83,23 @@ export default function MapCanvas({
             // Then pan to a new location every 20 seconds
             animationInterval.current = setInterval(panToRandom, 20000)
           }
+
+          if (animateMarkers) {
+            markerInterval.current = setInterval(() => {
+              const bounds = map.current.getBounds()
+              const lng = Math.random() * (bounds.getEast() - bounds.getWest()) + bounds.getWest()
+              const lat = Math.random() * (bounds.getNorth() - bounds.getSouth()) + bounds.getSouth()
+
+              const el = document.createElement("div")
+              el.className = "fading-marker"
+
+              const marker = new window.mapboxgl.Marker(el).setLngLat([lng, lat]).addTo(map.current)
+
+              setTimeout(() => {
+                marker.remove()
+              }, 4000) // Corresponds to animation duration
+            }, 1000) // Add a new marker every second
+          }
         })
 
         map.current.on("error", (e: any) => {
@@ -106,12 +125,15 @@ export default function MapCanvas({
       if (animationInterval.current) {
         clearInterval(animationInterval.current)
       }
+      if (markerInterval.current) {
+        clearInterval(markerInterval.current)
+      }
       if (map.current) {
         map.current.remove()
         map.current = null
       }
     }
-  }, [interactive, style, animate])
+  }, [interactive, style, animate, animateMarkers])
 
   return <div ref={mapContainer} style={{ width: "100%", height: "100%" }} className={`absolute inset-0 ${className}`} />
 } 
