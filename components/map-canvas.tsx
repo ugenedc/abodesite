@@ -11,7 +11,11 @@ const locations = {
   fortitudeValley: { center: [153.035, -27.458], zoom: 15.5 },
 }
 
-export default function MapCanvas({ interactive = true }) {
+export default function MapCanvas({
+  interactive = true,
+  className,
+  style = "mapbox://styles/mapbox/streets-v12",
+}) {
   const mapContainer = useRef<HTMLDivElement | null>(null)
   const map = useRef<any>(null)
 
@@ -40,7 +44,7 @@ export default function MapCanvas({ interactive = true }) {
         window.mapboxgl.accessToken = token
         map.current = new window.mapboxgl.Map({
           container: mapContainer.current,
-          style: "mapbox://styles/mapbox/streets-v12", // Using a simpler default style for debugging
+          style: style, // Using a simpler default style for debugging
           center: [-74.5, 40], // Default coords
           zoom: 9, // Default zoom
           interactive: interactive,
@@ -76,7 +80,7 @@ export default function MapCanvas({ interactive = true }) {
         map.current = null
       }
     }
-  }, [interactive])
+  }, [interactive, style])
 
-  return <div ref={mapContainer} style={{ width: '100%', height: '100%' }} className="absolute inset-0" />
+  return <div ref={mapContainer} style={{ width: "100%", height: "100%" }} className={`absolute inset-0 ${className}`} />
 } 
