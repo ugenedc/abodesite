@@ -155,7 +155,7 @@ export default function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-32 bg-gray-50/30">
+      <section id="features" className="py-32 bg-gradient-to-br from-pink-400 via-purple-400 to-orange-300">
         <div className="container mx-auto px-8">
           <ScrollSection blurAmount={4} fadeDirection="up">
             <div className="text-center mb-20">
@@ -309,7 +309,7 @@ export default function HomePage() {
       </section>
 
       {/* Pricing Section - Refactored for Waitlist */}
-      <section id="pricing" className="py-32 bg-gray-50/30">
+      <section id="pricing" className="py-32 bg-gradient-to-br from-pink-400 via-purple-400 to-orange-300">
         <div className="container mx-auto px-8">
           <ScrollSection blurAmount={4} fadeDirection="up">
             <div className="text-center mb-20">
