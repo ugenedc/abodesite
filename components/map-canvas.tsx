@@ -50,9 +50,9 @@ export default function MapCanvas({
         map.current = new window.mapboxgl.Map({
           container: mapContainer.current,
           style: style,
-          center: [153.026, -27.4705], // Brisbane CBD
-          zoom: 12,
-          minZoom: 10, // Prevent zooming out too far
+          center: [153.026, -27.4705], // Brisbane CBD (will be overridden by initial animation)
+          zoom: 1, // Start zoomed out to show Earth
+          minZoom: 1, // Allow full Earth view
           maxZoom: 14, // Prevent zooming in too far (street names appear around 15+)
           interactive: interactive,
         })
@@ -61,48 +61,65 @@ export default function MapCanvas({
         map.current.on("load", () => {
           console.log("Map loaded successfully.")
           setIsLoaded(true)
+          
           if (animate) {
-            const locationKeys = Object.keys(locations)
-            let currentKey: string | null = null
-
-            const panToRandom = () => {
-              let nextLocationKey: string
-              do {
-                nextLocationKey = locationKeys[Math.floor(Math.random() * locationKeys.length)]
-              } while (nextLocationKey === currentKey) // Don't pick the same one twice in a row
-
-              currentKey = nextLocationKey
-              const nextLocation = locations[nextLocationKey]
-
+            // Start with dramatic zoom from Earth to Brisbane
+            setTimeout(() => {
               map.current.flyTo({
-                center: nextLocation.center,
-                zoom: nextLocation.zoom,
-                duration: 15000, // 15 seconds for a slow pan
-                essential: true, // Prevents users from interrupting the animation
+                center: [153.026, -27.4705], // Brisbane CBD
+                zoom: 12,
+                duration: 8000, // 8 seconds for the initial Earth-to-Brisbane zoom
+                essential: true,
               })
-            }
+            }, 1000) // Wait 1 second before starting the zoom
 
-            // Pan to the first location immediately
-            panToRandom()
-            // Then pan to a new location every 15 seconds (matching duration)
-            animationInterval.current = setInterval(panToRandom, 15000)
+            // After the initial zoom, start the location cycling
+            setTimeout(() => {
+              const locationKeys = Object.keys(locations)
+              let currentKey: string | null = null
+
+              const panToRandom = () => {
+                let nextLocationKey: string
+                do {
+                  nextLocationKey = locationKeys[Math.floor(Math.random() * locationKeys.length)]
+                } while (nextLocationKey === currentKey) // Don't pick the same one twice in a row
+
+                currentKey = nextLocationKey
+                const nextLocation = locations[nextLocationKey]
+
+                map.current.flyTo({
+                  center: nextLocation.center,
+                  zoom: nextLocation.zoom,
+                  duration: 15000, // 15 seconds for location-to-location pans
+                  essential: true,
+                })
+              }
+
+              // Start the cycling animation
+              panToRandom()
+              // Then pan to a new location every 15 seconds
+              animationInterval.current = setInterval(panToRandom, 15000)
+            }, 9000) // Start location cycling after the initial zoom completes
           }
 
           if (animateMarkers) {
-            markerInterval.current = setInterval(() => {
-              const bounds = map.current.getBounds()
-              const lng = Math.random() * (bounds.getEast() - bounds.getWest()) + bounds.getWest()
-              const lat = Math.random() * (bounds.getNorth() - bounds.getSouth()) + bounds.getSouth()
+            // Start markers after the initial zoom animation
+            setTimeout(() => {
+              markerInterval.current = setInterval(() => {
+                const bounds = map.current.getBounds()
+                const lng = Math.random() * (bounds.getEast() - bounds.getWest()) + bounds.getWest()
+                const lat = Math.random() * (bounds.getNorth() - bounds.getSouth()) + bounds.getSouth()
 
-              const el = document.createElement("div")
-              el.className = "fading-marker"
+                const el = document.createElement("div")
+                el.className = "fading-marker"
 
-              const marker = new window.mapboxgl.Marker(el).setLngLat([lng, lat]).addTo(map.current)
+                const marker = new window.mapboxgl.Marker(el).setLngLat([lng, lat]).addTo(map.current)
 
-              setTimeout(() => {
-                marker.remove()
-              }, 4000) // Corresponds to animation duration
-            }, 1000) // Add a new marker every second
+                setTimeout(() => {
+                  marker.remove()
+                }, 4000) // Corresponds to animation duration
+              }, 1000) // Add a new marker every second
+            }, 9000) // Start markers after initial zoom
           }
         })
 
