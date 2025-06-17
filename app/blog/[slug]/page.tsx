@@ -166,7 +166,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
               <div className="text-center">
                 <div className="w-16 h-16 bg-gradient-to-br from-purple-400/20 to-orange-400/20 rounded-full flex items-center justify-center mx-auto mb-8">
                   <svg className="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-5 5v-5zM9 7H4l5-5v5zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
                 <h3 className="text-2xl font-light text-gray-900 mb-4">
