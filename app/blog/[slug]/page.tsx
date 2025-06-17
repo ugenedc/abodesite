@@ -97,20 +97,20 @@ export default async function PostPage({ params }: { params: { slug: string } })
         <div className="absolute inset-0 bg-gradient-to-br from-pink-400/90 via-purple-400/90 to-orange-300/90"></div>
         
         <div className="container mx-auto px-8 relative z-10">
-          <div className="max-w-4xl mx-auto pt-16">
-            {/* Back to blog link - left aligned */}
-            <div className="mb-12">
-              <Link 
-                href="/blog"
-                className="inline-flex items-center px-6 py-3 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-white hover:bg-white/30 transition-all duration-300 text-sm font-medium"
-              >
-                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Back to Blog
-              </Link>
-            </div>
+          {/* Back to blog link - top left corner */}
+          <div className="absolute top-8 left-8 z-20">
+            <Link 
+              href="/blog"
+              className="inline-flex items-center text-white hover:text-white/80 transition-all duration-300 text-sm font-medium"
+            >
+              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              Back to Blog
+            </Link>
+          </div>
 
+          <div className="max-w-4xl mx-auto pt-24">
             {/* Content - centered */}
             <div className="text-center">
               {/* Date badge */}
