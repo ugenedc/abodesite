@@ -44,27 +44,29 @@ export default async function PostPage({ params }: { params: { slug: string } })
           <div className="absolute inset-0 bg-gradient-to-br from-pink-400/90 via-purple-400/90 to-orange-300/90"></div>
           
           <div className="container mx-auto px-8 relative z-10">
-            <div className="text-center pt-32">
-              <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-8">
-                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-                </svg>
+            <div className="max-w-4xl mx-auto pt-16">
+              <div className="text-center pt-16">
+                <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-8">
+                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                  </svg>
+                </div>
+                <h1 className="text-5xl md:text-6xl font-light text-white drop-shadow-lg mb-6">
+                  Post Not Found
+                </h1>
+                <p className="text-xl text-white/90 font-light mb-12 max-w-2xl mx-auto drop-shadow">
+                  The blog post you're looking for doesn't exist or has been moved.
+                </p>
+                <Link 
+                  href="/blog"
+                  className="inline-flex items-center px-8 py-4 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-white hover:bg-white/30 transition-all duration-300 font-medium"
+                >
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </svg>
+                  Back to Blog
+                </Link>
               </div>
-              <h1 className="text-5xl md:text-6xl font-light text-white drop-shadow-lg mb-6">
-                Post Not Found
-              </h1>
-              <p className="text-xl text-white/90 font-light mb-12 max-w-2xl mx-auto drop-shadow">
-                The blog post you're looking for doesn't exist or has been moved.
-              </p>
-              <Link 
-                href="/blog"
-                className="inline-flex items-center px-8 py-4 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-white hover:bg-white/30 transition-all duration-300 font-medium"
-              >
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Back to Blog
-              </Link>
             </div>
           </div>
         </section>
@@ -95,34 +97,39 @@ export default async function PostPage({ params }: { params: { slug: string } })
         <div className="absolute inset-0 bg-gradient-to-br from-pink-400/90 via-purple-400/90 to-orange-300/90"></div>
         
         <div className="container mx-auto px-8 relative z-10">
-          <div className="max-w-4xl mx-auto text-center pt-16">
-            {/* Back to blog link */}
-            <Link 
-              href="/blog"
-              className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-white hover:bg-white/30 transition-all duration-300 text-sm font-medium mb-12"
-            >
-              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
-              Back to Blog
-            </Link>
-
-            {/* Date badge */}
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 mb-8">
-              <div className="w-2 h-2 bg-white rounded-full mr-3"></div>
-              <span className="text-sm text-white font-medium">
-                {new Date(post.publishedAt).toLocaleDateString('en-US', { 
-                  year: 'numeric', 
-                  month: 'long', 
-                  day: 'numeric' 
-                })}
-              </span>
+          <div className="max-w-4xl mx-auto pt-16">
+            {/* Back to blog link - left aligned */}
+            <div className="mb-12">
+              <Link 
+                href="/blog"
+                className="inline-flex items-center px-6 py-3 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-white hover:bg-white/30 transition-all duration-300 text-sm font-medium"
+              >
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Back to Blog
+              </Link>
             </div>
 
-            {/* Title */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-light leading-tight text-white drop-shadow-lg mb-8">
-              {post.title}
-            </h1>
+            {/* Content - centered */}
+            <div className="text-center">
+              {/* Date badge */}
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 mb-8">
+                <div className="w-2 h-2 bg-white rounded-full mr-3"></div>
+                <span className="text-sm text-white font-medium">
+                  {new Date(post.publishedAt).toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  })}
+                </span>
+              </div>
+
+              {/* Title */}
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-light leading-tight text-white drop-shadow-lg mb-8">
+                {post.title}
+              </h1>
+            </div>
           </div>
         </div>
       </section>
