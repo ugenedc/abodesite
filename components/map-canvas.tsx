@@ -4,11 +4,11 @@
 import React, { useEffect, useRef, useState } from "react"
 
 const locations = {
-  brisbaneCBD: { center: [153.026, -27.4705], zoom: 14.5 },
-  newFarm: { center: [153.042, -27.468], zoom: 15 },
-  southBank: { center: [153.02, -27.476], zoom: 15.2 },
-  westEnd: { center: [153.01, -27.48], zoom: 14.8 },
-  fortitudeValley: { center: [153.035, -27.458], zoom: 15.5 },
+  brisbaneCBD: { center: [153.026, -27.4705], zoom: 13.5 },
+  newFarm: { center: [153.042, -27.468], zoom: 13.8 },
+  southBank: { center: [153.02, -27.476], zoom: 13.6 },
+  westEnd: { center: [153.01, -27.48], zoom: 13.4 },
+  fortitudeValley: { center: [153.035, -27.458], zoom: 13.7 },
 }
 
 export default function MapCanvas({
@@ -51,7 +51,9 @@ export default function MapCanvas({
           container: mapContainer.current,
           style: style,
           center: [153.026, -27.4705], // Brisbane CBD
-          zoom: 12, 
+          zoom: 12,
+          minZoom: 10, // Prevent zooming out too far
+          maxZoom: 14, // Prevent zooming in too far (street names appear around 15+)
           interactive: interactive,
         })
         console.log("Map object created successfully.")
