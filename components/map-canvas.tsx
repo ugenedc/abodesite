@@ -61,10 +61,10 @@ export default function MapCanvas({
 
         map.current.on("load", () => {
           console.log("Map loaded successfully.")
-          setIsLoaded(true)
           
           // Start fade-in effect after map is ready
           setTimeout(() => {
+            setIsLoaded(true)
             setIsFadedIn(true)
           }, 1000) // Wait 1 second, then start fade
           
