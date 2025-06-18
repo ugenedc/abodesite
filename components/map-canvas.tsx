@@ -4,11 +4,11 @@
 import React, { useEffect, useRef, useState } from "react"
 
 const locations = {
-  brisbaneCBD: { center: [153.026, -27.4705], zoom: 13.5 },
-  newFarm: { center: [153.042, -27.468], zoom: 13.8 },
-  southBank: { center: [153.02, -27.476], zoom: 13.6 },
-  westEnd: { center: [153.01, -27.48], zoom: 13.4 },
-  fortitudeValley: { center: [153.035, -27.458], zoom: 13.7 },
+  brisbaneCBD: { center: [153.026, -27.4705], zoom: 12.5 },
+  newFarm: { center: [153.042, -27.468], zoom: 12.8 },
+  southBank: { center: [153.02, -27.476], zoom: 12.6 },
+  westEnd: { center: [153.01, -27.48], zoom: 12.4 },
+  fortitudeValley: { center: [153.035, -27.458], zoom: 12.7 },
 }
 
 export default function MapCanvas({
@@ -23,6 +23,7 @@ export default function MapCanvas({
   const animationInterval = useRef<NodeJS.Timeout | null>(null)
   const markerInterval = useRef<NodeJS.Timeout | null>(null)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [isFadedIn, setIsFadedIn] = useState(false)
 
   useEffect(() => {
     const initializeMap = () => {
@@ -51,33 +52,24 @@ export default function MapCanvas({
           container: mapContainer.current,
           style: style,
           center: [153.026, -27.4705], // Brisbane CBD
-          zoom: 11, // Start at a mid-level over Brisbane
-          minZoom: 10, // Allow zooming out a bit
-          maxZoom: 14, // Prevent zooming in too far (street names appear around 15+)
+          zoom: 12, // Start at a good level over Brisbane
+          minZoom: 10,
+          maxZoom: 13, // Lower max zoom to prevent street names
           interactive: interactive,
         })
         console.log("Map object created successfully.")
 
         map.current.on("load", () => {
           console.log("Map loaded successfully.")
+          setIsLoaded(true)
           
-          // Start fade-in effect after a brief delay
+          // Start fade-in effect after map is ready
           setTimeout(() => {
-            setIsLoaded(true)
-          }, 500) // Small delay to ensure everything is ready
+            setIsFadedIn(true)
+          }, 1000) // Wait 1 second, then start fade
           
           if (animate) {
-            // Start with a gentle zoom to a slightly closer view
-            setTimeout(() => {
-              map.current.flyTo({
-                center: [153.026, -27.4705], // Brisbane CBD
-                zoom: 12.5,
-                duration: 3000, // 3 seconds for gentle zoom
-                essential: true,
-              })
-            }, 2000) // Wait 2 seconds before starting the gentle zoom
-
-            // After the initial gentle zoom, start the location cycling
+            // Start location cycling after fade-in completes
             setTimeout(() => {
               const locationKeys = Object.keys(locations)
               let currentKey: string | null = null
@@ -86,7 +78,7 @@ export default function MapCanvas({
                 let nextLocationKey: string
                 do {
                   nextLocationKey = locationKeys[Math.floor(Math.random() * locationKeys.length)]
-                } while (nextLocationKey === currentKey) // Don't pick the same one twice in a row
+                } while (nextLocationKey === currentKey)
 
                 currentKey = nextLocationKey
                 const nextLocation = locations[nextLocationKey]
@@ -94,7 +86,7 @@ export default function MapCanvas({
                 map.current.flyTo({
                   center: nextLocation.center,
                   zoom: nextLocation.zoom,
-                  duration: 15000, // 15 seconds for location-to-location pans
+                  duration: 15000,
                   essential: true,
                 })
               }
@@ -103,11 +95,11 @@ export default function MapCanvas({
               panToRandom()
               // Then pan to a new location every 15 seconds
               animationInterval.current = setInterval(panToRandom, 15000)
-            }, 6000) // Start location cycling after initial fade + zoom completes
+            }, 4000) // Start location cycling after fade completes
           }
 
           if (animateMarkers) {
-            // Start markers after the fade-in and initial zoom
+            // Start markers after fade-in
             setTimeout(() => {
               markerInterval.current = setInterval(() => {
                 const bounds = map.current.getBounds()
@@ -121,9 +113,9 @@ export default function MapCanvas({
 
                 setTimeout(() => {
                   marker.remove()
-                }, 4000) // Corresponds to animation duration
-              }, 1000) // Add a new marker every second
-            }, 3000) // Start markers after fade-in completes
+                }, 4000)
+              }, 1000)
+            }, 4000) // Start markers after fade completes
           }
         })
 
@@ -165,7 +157,7 @@ export default function MapCanvas({
       ref={mapContainer}
       style={{ width: "100%", height: "100%" }}
       className={`absolute inset-0 transition-opacity duration-3000 ease-in-out ${className} ${
-        isLoaded ? "opacity-100" : "opacity-0"
+        isLoaded && isFadedIn ? "opacity-100" : "opacity-0"
       }`}
     />
   )
