@@ -50,9 +50,9 @@ export default function MapCanvas({
         map.current = new window.mapboxgl.Map({
           container: mapContainer.current,
           style: style,
-          center: [153.026, -27.4705], // Brisbane CBD (will be overridden by initial animation)
-          zoom: 1, // Start zoomed out to show Earth
-          minZoom: 1, // Allow full Earth view
+          center: [153.026, -27.4705], // Brisbane CBD
+          zoom: 11, // Start at a mid-level over Brisbane
+          minZoom: 10, // Allow zooming out a bit
           maxZoom: 14, // Prevent zooming in too far (street names appear around 15+)
           interactive: interactive,
         })
@@ -60,20 +60,24 @@ export default function MapCanvas({
 
         map.current.on("load", () => {
           console.log("Map loaded successfully.")
-          setIsLoaded(true)
+          
+          // Start fade-in effect after a brief delay
+          setTimeout(() => {
+            setIsLoaded(true)
+          }, 500) // Small delay to ensure everything is ready
           
           if (animate) {
-            // Start with dramatic zoom from Earth to Brisbane
+            // Start with a gentle zoom to a slightly closer view
             setTimeout(() => {
               map.current.flyTo({
                 center: [153.026, -27.4705], // Brisbane CBD
-                zoom: 12,
-                duration: 8000, // 8 seconds for the initial Earth-to-Brisbane zoom
+                zoom: 12.5,
+                duration: 3000, // 3 seconds for gentle zoom
                 essential: true,
               })
-            }, 1000) // Wait 1 second before starting the zoom
+            }, 2000) // Wait 2 seconds before starting the gentle zoom
 
-            // After the initial zoom, start the location cycling
+            // After the initial gentle zoom, start the location cycling
             setTimeout(() => {
               const locationKeys = Object.keys(locations)
               let currentKey: string | null = null
@@ -99,11 +103,11 @@ export default function MapCanvas({
               panToRandom()
               // Then pan to a new location every 15 seconds
               animationInterval.current = setInterval(panToRandom, 15000)
-            }, 9000) // Start location cycling after the initial zoom completes
+            }, 6000) // Start location cycling after initial fade + zoom completes
           }
 
           if (animateMarkers) {
-            // Start markers after the initial zoom animation
+            // Start markers after the fade-in and initial zoom
             setTimeout(() => {
               markerInterval.current = setInterval(() => {
                 const bounds = map.current.getBounds()
@@ -119,7 +123,7 @@ export default function MapCanvas({
                   marker.remove()
                 }, 4000) // Corresponds to animation duration
               }, 1000) // Add a new marker every second
-            }, 9000) // Start markers after initial zoom
+            }, 3000) // Start markers after fade-in completes
           }
         })
 
@@ -160,7 +164,7 @@ export default function MapCanvas({
     <div
       ref={mapContainer}
       style={{ width: "100%", height: "100%" }}
-      className={`absolute inset-0 transition-opacity duration-1000 ease-in ${className} ${
+      className={`absolute inset-0 transition-opacity duration-3000 ease-in-out ${className} ${
         isLoaded ? "opacity-100" : "opacity-0"
       }`}
     />
