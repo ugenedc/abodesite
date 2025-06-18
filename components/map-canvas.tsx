@@ -22,7 +22,6 @@ export default function MapCanvas({
   const map = useRef<any>(null)
   const animationInterval = useRef<NodeJS.Timeout | null>(null)
   const markerInterval = useRef<NodeJS.Timeout | null>(null)
-  const [isLoaded, setIsLoaded] = useState(false)
   const [isFadedIn, setIsFadedIn] = useState(false)
 
   useEffect(() => {
@@ -64,7 +63,6 @@ export default function MapCanvas({
           
           // Start fade-in effect after map is ready
           setTimeout(() => {
-            setIsLoaded(true)
             setIsFadedIn(true)
           }, 1000) // Wait 1 second, then start fade
           
@@ -154,11 +152,15 @@ export default function MapCanvas({
 
   return (
     <div
-      ref={mapContainer}
-      style={{ width: "100%", height: "100%" }}
       className={`absolute inset-0 transition-opacity duration-3000 ease-in-out ${className} ${
-        isLoaded && isFadedIn ? "opacity-100" : "opacity-0"
+        isFadedIn ? "opacity-100" : "opacity-0"
       }`}
-    />
+      style={{ width: "100%", height: "100%" }}
+    >
+      <div
+        ref={mapContainer}
+        style={{ width: "100%", height: "100%" }}
+      />
+    </div>
   )
 } 
