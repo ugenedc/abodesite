@@ -51,9 +51,24 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
     : "text-gray-800"
 
   const scrollToContact = () => {
-    const contactSection = document.getElementById("contact")
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth" })
+    if (pathname === "/") {
+      const contactSection = document.getElementById("contact")
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: "smooth" })
+      }
+    } else {
+      window.location.href = "/#contact"
+    }
+  }
+
+  const navigateToSection = (sectionId: string) => {
+    if (pathname === "/") {
+      const section = document.getElementById(sectionId)
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" })
+      }
+    } else {
+      window.location.href = `/#${sectionId}`
     }
   }
 
@@ -79,24 +94,24 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
           </div>
 
           <nav className="hidden md:flex items-center space-x-12">
-            <Link
-              href="/#features"
+            <button
+              onClick={() => navigateToSection("features")}
               className={`transition-all duration-300 ${navText}`}
             >
               Features
-            </Link>
-            <Link
-              href="/#solutions"
+            </button>
+            <button
+              onClick={() => navigateToSection("solutions")}
               className={`transition-all duration-300 ${navText}`}
             >
               Solutions
-            </Link>
-            <Link
-              href="/#pricing"
+            </button>
+            <button
+              onClick={() => navigateToSection("pricing")}
               className={`transition-all duration-300 ${navText}`}
             >
               Pricing
-            </Link>
+            </button>
             <Link
               href="/blog"
               className={`transition-all duration-300 ${navText}`}
