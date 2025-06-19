@@ -323,3 +323,20 @@ a[title*="OpenStreetMap"],
 .mapboxgl-ctrl {
   display: none !important;
 }
+
+/* Team page social icons styling */
+.team-social-icon {
+  fill: currentColor !important;
+  stroke: none !important;
+}
+
+/* Ensure team cards maintain rounded corners */
+.team-card {
+  border-radius: 1.5rem !important;
+  overflow: hidden !important;
+}
+
+.team-card-content {
+  border-radius: 1.5rem !important;
+  overflow: hidden !important;
+}

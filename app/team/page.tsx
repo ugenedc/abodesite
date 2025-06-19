@@ -113,10 +113,10 @@ export default function TeamPage() {
           <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-12 max-w-7xl mx-auto">
             {teamMembers.map((member, index) => (
               <ScrollSection key={index} delay={member.delay} blurAmount={3} fadeDirection="up">
-                <Card className="group border-0 bg-white hover:bg-gray-50/50 transition-all duration-700 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transform hover:-translate-y-2">
-                  <CardContent className="p-0">
+                <Card className="group team-card border-0 bg-white hover:bg-gray-50/50 transition-all duration-700 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transform hover:-translate-y-2">
+                  <CardContent className="p-0 team-card-content rounded-3xl overflow-hidden">
                     {/* Avatar Container */}
-                    <div className="relative h-80 overflow-hidden">
+                    <div className="relative h-80 overflow-hidden rounded-t-3xl">
                       <div className={`absolute inset-0 bg-gradient-to-br ${member.gradient} group-hover:scale-105 transition-transform duration-700`}></div>
                       
                       {/* Avatar with Initials */}
@@ -133,39 +133,39 @@ export default function TeamPage() {
                       <div className="absolute top-12 right-8 w-2 h-2 bg-white/40 rounded-full animate-float-delayed"></div>
                       <div className="absolute bottom-8 left-8 w-3 h-3 bg-white/25 rounded-full animate-float"></div>
                       
-                      {/* Social Links Overlay */}
-                      <div className="absolute top-6 right-6 flex flex-col gap-3 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-x-4 group-hover:translate-x-0">
-                        <Button
-                          size="icon"
-                          variant="ghost"
-                          className="w-10 h-10 bg-white/90 backdrop-blur-sm text-gray-600 hover:text-purple-500 hover:bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-                          asChild
-                        >
-                          <Link href={member.linkedin}>
-                            <Linkedin className="w-4 h-4" />
-                          </Link>
-                        </Button>
-                        <Button
-                          size="icon"
-                          variant="ghost"
-                          className="w-10 h-10 bg-white/90 backdrop-blur-sm text-gray-600 hover:text-blue-500 hover:bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-                          asChild
-                        >
-                          <Link href={member.twitter}>
-                            <Twitter className="w-4 h-4" />
-                          </Link>
-                        </Button>
-                        <Button
-                          size="icon"
-                          variant="ghost"
-                          className="w-10 h-10 bg-white/90 backdrop-blur-sm text-gray-600 hover:text-orange-500 hover:bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-                          asChild
-                        >
-                          <Link href={`mailto:${member.email}`}>
-                            <Mail className="w-4 h-4" />
-                          </Link>
-                        </Button>
-                      </div>
+                                             {/* Social Links Overlay */}
+                       <div className="absolute top-6 right-6 flex flex-col gap-3 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-x-4 group-hover:translate-x-0">
+                         <Button
+                           size="icon"
+                           variant="ghost"
+                           className="w-10 h-10 bg-white/90 backdrop-blur-sm text-gray-500 hover:text-purple-500 hover:bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+                           asChild
+                         >
+                           <Link href={member.linkedin}>
+                             <Linkedin className="w-4 h-4 team-social-icon" />
+                           </Link>
+                         </Button>
+                         <Button
+                           size="icon"
+                           variant="ghost"
+                           className="w-10 h-10 bg-white/90 backdrop-blur-sm text-gray-500 hover:text-blue-500 hover:bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+                           asChild
+                         >
+                           <Link href={member.twitter}>
+                             <Twitter className="w-4 h-4 team-social-icon" />
+                           </Link>
+                         </Button>
+                         <Button
+                           size="icon"
+                           variant="ghost"
+                           className="w-10 h-10 bg-white/90 backdrop-blur-sm text-gray-500 hover:text-orange-500 hover:bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+                           asChild
+                         >
+                           <Link href={`mailto:${member.email}`}>
+                             <Mail className="w-4 h-4 team-social-icon" />
+                           </Link>
+                         </Button>
+                       </div>
                     </div>
                     
                     {/* Content */}
