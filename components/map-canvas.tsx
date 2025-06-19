@@ -154,26 +154,17 @@ export default function MapCanvas({
                   console.log(`Map center: [${map.current.getCenter().lng}, ${map.current.getCenter().lat}]`)
                   console.log(`Map bounds:`, map.current.getBounds())
 
-                  // Random color from brand palette
-                  const colors = [
-                    "#8B5CF6", // Purple
-                    "#A855F7", // Purple variant
-                    "#FB923C", // Orange
-                    "#F97316", // Orange variant
-                    "#EC4899", // Pink
-                  ]
-                  const randomColor = colors[Math.floor(Math.random() * colors.length)]
+                  // Use consistent Abode brand color (purple)
+                  const abodeColor = "#8B5CF6"
 
-                  // Create custom SVG marker element
+                  // Create custom SVG marker element with consistent Abode branding
                   const el = document.createElement("div")
                   el.className = "location-marker-animated"
-                  el.style.width = "32px"
-                  el.style.height = "41px"
                   el.innerHTML = `
-                    <svg width="32" height="41" viewBox="0 0 62.3 80.6" xmlns="http://www.w3.org/2000/svg" style="display: block; width: 100%; height: 100%;">
+                    <svg width="32" height="41" viewBox="0 0 62.3 80.6" xmlns="http://www.w3.org/2000/svg">
                       <defs>
                         <style>
-                          .marker-fill { fill: ${randomColor}; }
+                          .marker-fill { fill: ${abodeColor}; }
                           .marker-center { fill: #fff; }
                         </style>
                       </defs>
@@ -183,42 +174,17 @@ export default function MapCanvas({
                   `
 
                   try {
-                    // Convert lat/lng to pixel coordinates
-                    const point = map.current.project([offsetLng, offsetLat])
-                    console.log(`Pixel coordinates: [${point.x}, ${point.y}]`)
-                    
-                    // Position the marker using absolute positioning
-                    el.style.position = 'absolute'
-                    el.style.left = `${point.x - 16}px` // Center the 32px wide marker
-                    el.style.top = `${point.y - 41}px`  // Bottom-align the 41px tall marker
-                    el.style.zIndex = '1000'
-                    el.style.pointerEvents = 'none'
-                    
-                    // Add to map container instead of using Mapbox marker
-                    const mapContainer = map.current.getContainer()
-                    mapContainer.appendChild(el)
+                    // Use proper Mapbox marker that's locked to coordinates
+                    const marker = new window.mapboxgl.Marker(el)
+                      .setLngLat([offsetLng, offsetLat])
+                      .addTo(map.current)
 
-                    console.log("Marker positioned at pixel coordinates:", [point.x, point.y])
-
-                    // Update marker position when map moves
-                    const updateMarkerPosition = () => {
-                      const newPoint = map.current.project([offsetLng, offsetLat])
-                      el.style.left = `${newPoint.x - 16}px`
-                      el.style.top = `${newPoint.y - 41}px`
-                    }
-                    
-                    // Listen for map movements to update marker position
-                    map.current.on('move', updateMarkerPosition)
-                    map.current.on('zoom', updateMarkerPosition)
+                    console.log("Mapbox marker created at coordinates:", [offsetLng, offsetLat])
 
                     // Remove marker after animation completes
                     setTimeout(() => {
                       console.log("Removing marker")
-                      map.current.off('move', updateMarkerPosition)
-                      map.current.off('zoom', updateMarkerPosition)
-                      if (el.parentNode) {
-                        el.parentNode.removeChild(el)
-                      }
+                      marker.remove()
                     }, 6000)
                   } catch (error) {
                     console.error("Error creating marker:", error)
