@@ -113,6 +113,12 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
               Pricing
             </button>
             <Link
+              href="/team"
+              className={`transition-all duration-300 ${navText} hover:text-purple-500`}
+            >
+              Team
+            </Link>
+            <Link
               href="/blog"
               className={`transition-all duration-300 ${navText}`}
             >
