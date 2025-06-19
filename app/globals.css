@@ -307,6 +307,53 @@ select:focus {
   animation: fadeInOut 4s ease-in-out forwards;
 }
 
+/* Animated location markers */
+.location-marker-animated {
+  animation: locationMarkerPop 5s ease-in-out forwards;
+  transform-origin: center bottom;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+@keyframes locationMarkerPop {
+  0% { 
+    opacity: 0; 
+    transform: scale(0) translateY(10px); 
+  }
+  15% { 
+    opacity: 1; 
+    transform: scale(1.2) translateY(-5px); 
+  }
+  25% { 
+    transform: scale(1) translateY(0px); 
+  }
+  75% { 
+    opacity: 1; 
+    transform: scale(1) translateY(0px); 
+  }
+  90% { 
+    opacity: 0.5; 
+    transform: scale(0.8) translateY(2px); 
+  }
+  100% { 
+    opacity: 0; 
+    transform: scale(0) translateY(10px); 
+  }
+}
+
+/* Subtle pulse effect for markers */
+.location-marker-animated svg {
+  animation: markerPulse 2s ease-in-out infinite;
+}
+
+@keyframes markerPulse {
+  0%, 100% { 
+    transform: scale(1); 
+  }
+  50% { 
+    transform: scale(1.05); 
+  }
+}
+
 /* Hide any remaining Mapbox attribution/watermarks */
 .mapboxgl-ctrl-attrib,
 .mapboxgl-ctrl-logo,

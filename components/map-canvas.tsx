@@ -105,15 +105,42 @@ export default function MapCanvas({
                 const lng = Math.random() * (bounds.getEast() - bounds.getWest()) + bounds.getWest()
                 const lat = Math.random() * (bounds.getNorth() - bounds.getSouth()) + bounds.getSouth()
 
+                // Random color from brand palette
+                const colors = [
+                  "#8B5CF6", // Purple
+                  "#A855F7", // Purple variant
+                  "#FB923C", // Orange
+                  "#F97316", // Orange variant
+                  "#EC4899", // Pink
+                ]
+                const randomColor = colors[Math.floor(Math.random() * colors.length)]
+
+                // Create custom SVG marker element
                 const el = document.createElement("div")
-                el.className = "fading-marker"
+                el.className = "location-marker-animated"
+                el.innerHTML = `
+                  <svg width="24" height="31" viewBox="0 0 62.3 80.6" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <style>
+                        .marker-fill { fill: ${randomColor}; }
+                        .marker-center { fill: #fff; }
+                      </style>
+                    </defs>
+                    <path class="marker-fill" d="M31.2,11.6c-11.5,0-20.9,9.4-20.9,20.9,0,19.8,20.9,36.6,20.9,36.6,0,0,20.9-16.8,20.9-36.6s-9.4-20.9-20.9-20.9Z"/>
+                    <path class="marker-center" d="M22.2,40.3c0-4.9,3.7-8.5,8.9-8.5s8.9,3.5,8.9,8.5-3.8,8.5-8.9,8.5-8.9-3.6-8.9-8.5ZM34.6,40.3c0-2.1-1.4-3.6-3.4-3.6s-3.4,1.4-3.4,3.6,1.4,3.6,3.4,3.6,3.4-1.4,3.4-3.6ZM22.2,29l8.9-2.1,9,2.1v-4.1l-9-2.1-8.9,2.1v4.1Z"/>
+                  </svg>
+                `
 
-                const marker = new window.mapboxgl.Marker(el).setLngLat([lng, lat]).addTo(map.current)
+                const marker = new window.mapboxgl.Marker({
+                  element: el,
+                  anchor: 'bottom' // Anchor to bottom so it sits properly on the map
+                }).setLngLat([lng, lat]).addTo(map.current)
 
+                // Remove marker after animation completes
                 setTimeout(() => {
                   marker.remove()
-                }, 4000)
-              }, 1000)
+                }, 5000)
+              }, 1500) // Spawn every 1.5 seconds
             }, 4000) // Start markers after fade completes
           }
         })
