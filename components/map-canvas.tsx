@@ -5,10 +5,13 @@ import React, { useEffect, useRef, useState } from "react"
 
 const locations = {
   brisbaneCBD: { center: [153.026, -27.4705], zoom: 12.5 },
-  newFarm: { center: [153.042, -27.468], zoom: 12.8 },
-  southBank: { center: [153.02, -27.476], zoom: 12.6 },
-  westEnd: { center: [153.01, -27.48], zoom: 12.4 },
-  fortitudeValley: { center: [153.035, -27.458], zoom: 12.7 },
+  goldCoast: { center: [153.4, -28.0], zoom: 11.5 },
+  sunshineCoast: { center: [153.1, -26.65], zoom: 11.8 },
+  ipswich: { center: [152.76, -27.62], zoom: 12.2 },
+  redlands: { center: [153.35, -27.63], zoom: 12.0 },
+  loganCity: { center: [153.1, -27.64], zoom: 12.1 },
+  mortonBay: { center: [153.05, -27.25], zoom: 11.9 },
+  toowoomba: { center: [151.95, -27.56], zoom: 12.3 },
 }
 
 export default function MapCanvas({
@@ -85,35 +88,42 @@ export default function MapCanvas({
                 map.current.flyTo({
                   center: nextLocation.center,
                   zoom: nextLocation.zoom,
-                  duration: 15000,
+                  duration: 8000,
                   essential: true,
                 })
               }
 
               // Start the cycling animation
               panToRandom()
-              // Then pan to a new location every 15 seconds
-              animationInterval.current = setInterval(panToRandom, 15000)
-            }, 4000) // Start location cycling after fade completes
+              // Then pan to a new location every 8 seconds
+              animationInterval.current = setInterval(panToRandom, 8000)
+            }, 2000) // Start location cycling after fade completes
           }
 
           if (animateMarkers) {
             console.log("Starting animated markers...")
             
-            // Define specific property locations across Brisbane
+            // Define property locations across Queensland regions
             const propertyLocations = [
+              // Brisbane Metro
               [153.026, -27.4705], // Brisbane CBD
               [153.042, -27.468],  // New Farm
               [153.02, -27.476],   // South Bank
               [153.01, -27.48],    // West End
               [153.035, -27.458],  // Fortitude Valley
-              [153.05, -27.475],   // Kangaroo Point
-              [153.015, -27.465],  // Spring Hill
-              [153.04, -27.485],   // Woolloongabba
-              [153.025, -27.455],  // Bowen Hills
-              [153.045, -27.47],   // Teneriffe
-              [153.035, -27.49],   // East Brisbane
-              [153.02, -27.46],    // Paddington
+              // Gold Coast
+              [153.43, -28.0], // Surfers Paradise
+              [153.4, -27.95], // Broadbeach
+              [153.38, -28.05], // Burleigh Heads
+              // Sunshine Coast
+              [153.12, -26.68], // Noosa
+              [153.09, -26.65], // Maroochydore
+              // Other regions
+              [152.76, -27.62], // Ipswich
+              [153.35, -27.63], // Redlands
+              [153.1, -27.64],  // Logan
+              [153.05, -27.25], // Caboolture
+              [151.95, -27.56], // Toowoomba
             ]
             
             // Start markers after fade-in
@@ -145,10 +155,11 @@ export default function MapCanvas({
                 // Create custom SVG marker element
                 const el = document.createElement("div")
                 el.className = "location-marker-animated"
-                el.style.position = "absolute"
-                el.style.zIndex = "1000"
+                el.style.width = "32px"
+                el.style.height = "41px"
+                el.style.cursor = "pointer"
                 el.innerHTML = `
-                  <svg width="32" height="41" viewBox="0 0 62.3 80.6" xmlns="http://www.w3.org/2000/svg" style="display: block;">
+                  <svg width="32" height="41" viewBox="0 0 62.3 80.6" xmlns="http://www.w3.org/2000/svg" style="display: block; width: 100%; height: 100%;">
                     <defs>
                       <style>
                         .marker-fill { fill: ${randomColor}; }
@@ -163,7 +174,8 @@ export default function MapCanvas({
                 try {
                   const marker = new window.mapboxgl.Marker({
                     element: el,
-                    anchor: 'bottom'
+                    anchor: 'bottom',
+                    draggable: false
                   }).setLngLat([offsetLng, offsetLat]).addTo(map.current)
 
                   console.log("Marker created and added to map")
