@@ -99,16 +99,38 @@ export default function MapCanvas({
 
           if (animateMarkers) {
             console.log("Starting animated markers...")
+            
+            // Define specific property locations across Brisbane
+            const propertyLocations = [
+              [153.026, -27.4705], // Brisbane CBD
+              [153.042, -27.468],  // New Farm
+              [153.02, -27.476],   // South Bank
+              [153.01, -27.48],    // West End
+              [153.035, -27.458],  // Fortitude Valley
+              [153.05, -27.475],   // Kangaroo Point
+              [153.015, -27.465],  // Spring Hill
+              [153.04, -27.485],   // Woolloongabba
+              [153.025, -27.455],  // Bowen Hills
+              [153.045, -27.47],   // Teneriffe
+              [153.035, -27.49],   // East Brisbane
+              [153.02, -27.46],    // Paddington
+            ]
+            
             // Start markers after fade-in
             setTimeout(() => {
               console.log("Marker interval starting...")
               markerInterval.current = setInterval(() => {
                 console.log("Creating new marker...")
-                const bounds = map.current.getBounds()
-                const lng = Math.random() * (bounds.getEast() - bounds.getWest()) + bounds.getWest()
-                const lat = Math.random() * (bounds.getNorth() - bounds.getSouth()) + bounds.getSouth()
+                
+                // Pick a random property location
+                const randomLocation = propertyLocations[Math.floor(Math.random() * propertyLocations.length)]
+                const [lng, lat] = randomLocation
+                
+                // Add small random offset to make them feel more natural
+                const offsetLng = lng + (Math.random() - 0.5) * 0.005 // Small offset
+                const offsetLat = lat + (Math.random() - 0.5) * 0.005 // Small offset
 
-                console.log(`Marker position: [${lng}, ${lat}]`)
+                console.log(`Marker position: [${offsetLng}, ${offsetLat}]`)
 
                 // Random color from brand palette
                 const colors = [
@@ -123,7 +145,7 @@ export default function MapCanvas({
                 // Create custom SVG marker element
                 const el = document.createElement("div")
                 el.className = "location-marker-animated"
-                el.style.position = "relative"
+                el.style.position = "absolute"
                 el.style.zIndex = "1000"
                 el.innerHTML = `
                   <svg width="32" height="41" viewBox="0 0 62.3 80.6" xmlns="http://www.w3.org/2000/svg" style="display: block;">
@@ -141,8 +163,8 @@ export default function MapCanvas({
                 try {
                   const marker = new window.mapboxgl.Marker({
                     element: el,
-                    anchor: 'bottom' // Anchor to bottom so it sits properly on the map
-                  }).setLngLat([lng, lat]).addTo(map.current)
+                    anchor: 'bottom'
+                  }).setLngLat([offsetLng, offsetLat]).addTo(map.current)
 
                   console.log("Marker created and added to map")
 
@@ -154,7 +176,7 @@ export default function MapCanvas({
                 } catch (error) {
                   console.error("Error creating marker:", error)
                 }
-              }, 2000) // Spawn every 2 seconds
+              }, 2500) // Spawn every 2.5 seconds
             }, 2000) // Start markers after 2 seconds
           }
         })
