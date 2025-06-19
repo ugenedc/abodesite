@@ -306,3 +306,20 @@ select:focus {
   box-shadow: 0 0 15px 5px #ffffff;
   animation: fadeInOut 4s ease-in-out forwards;
 }
+
+/* Hide any remaining Mapbox attribution/watermarks */
+.mapboxgl-ctrl-attrib,
+.mapboxgl-ctrl-logo,
+.mapbox-improve-map,
+.mapboxgl-ctrl-bottom-left,
+.mapboxgl-ctrl-bottom-right {
+  display: none !important;
+}
+
+/* Hide Mapbox logo and attribution links */
+a[href*="mapbox.com"],
+a[title*="Mapbox"],
+a[title*="OpenStreetMap"],
+.mapboxgl-ctrl {
+  display: none !important;
+}

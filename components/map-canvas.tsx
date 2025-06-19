@@ -55,6 +55,7 @@ export default function MapCanvas({
           minZoom: 10,
           maxZoom: 13, // Lower max zoom to prevent street names
           interactive: interactive,
+          attributionControl: false, // Remove attribution watermark
         })
         console.log("Map object created successfully.")
 
@@ -152,10 +153,13 @@ export default function MapCanvas({
 
   return (
     <div
-      className={`absolute inset-0 transition-opacity duration-3000 ease-in-out ${className} ${
-        isFadedIn ? "opacity-100" : "opacity-0"
-      }`}
-      style={{ width: "100%", height: "100%" }}
+      className={`absolute inset-0 ${className}`}
+      style={{ 
+        width: "100%", 
+        height: "100%",
+        opacity: isFadedIn ? 1 : 0,
+        transition: "opacity 3000ms ease-in-out"
+      }}
     >
       <div
         ref={mapContainer}
