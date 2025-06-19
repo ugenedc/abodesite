@@ -183,7 +183,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       </header>
 
       {/* Mobile Menu Overlay */}
-      <div className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${
+      <div className={`fixed inset-0 z-[60] md:hidden transition-all duration-300 ${
         isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
       }`}>
         {/* Background Overlay */}
@@ -215,51 +215,45 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
           <nav className="p-8 space-y-6">
             <button
               onClick={() => navigateToSection("features")}
-              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light group"
+              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light"
             >
-              <span className="w-2 h-2 bg-purple-400 rounded-full mr-4 group-hover:scale-125 transition-transform duration-200"></span>
               Features
             </button>
             
             <button
               onClick={() => navigateToSection("solutions")}
-              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light group"
+              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light"
             >
-              <span className="w-2 h-2 bg-purple-500 rounded-full mr-4 group-hover:scale-125 transition-transform duration-200"></span>
               Solutions
             </button>
             
             <button
               onClick={() => navigateToSection("pricing")}
-              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light group"
+              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light"
             >
-              <span className="w-2 h-2 bg-orange-400 rounded-full mr-4 group-hover:scale-125 transition-transform duration-200"></span>
               Pricing
             </button>
             
             <Link
               href="/team"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light group"
+              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light"
             >
-              <span className="w-2 h-2 bg-orange-500 rounded-full mr-4 group-hover:scale-125 transition-transform duration-200"></span>
               Team
             </Link>
             
             <Link
               href="/blog"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light group"
+              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light"
             >
-              <span className="w-2 h-2 bg-purple-600 rounded-full mr-4 group-hover:scale-125 transition-transform duration-200"></span>
               Blog
             </Link>
             
             <button
               onClick={scrollToContactMobile}
-              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light group"
+              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light"
             >
-              <span className="w-2 h-2 bg-orange-600 rounded-full mr-4 group-hover:scale-125 transition-transform duration-200"></span>
               Contact
             </button>
           </nav>
