@@ -183,17 +183,42 @@ export default function MapCanvas({
                   `
 
                   try {
-                    // Use a simpler marker creation approach
-                    const marker = new window.mapboxgl.Marker(el)
-                      .setLngLat([offsetLng, offsetLat])
-                      .addTo(map.current)
+                    // Convert lat/lng to pixel coordinates
+                    const point = map.current.project([offsetLng, offsetLat])
+                    console.log(`Pixel coordinates: [${point.x}, ${point.y}]`)
+                    
+                    // Position the marker using absolute positioning
+                    el.style.position = 'absolute'
+                    el.style.left = `${point.x - 16}px` // Center the 32px wide marker
+                    el.style.top = `${point.y - 41}px`  // Bottom-align the 41px tall marker
+                    el.style.zIndex = '1000'
+                    el.style.pointerEvents = 'none'
+                    
+                    // Add to map container instead of using Mapbox marker
+                    const mapContainer = map.current.getContainer()
+                    mapContainer.appendChild(el)
 
-                    console.log("Marker created and added to map at:", [offsetLng, offsetLat])
+                    console.log("Marker positioned at pixel coordinates:", [point.x, point.y])
+
+                    // Update marker position when map moves
+                    const updateMarkerPosition = () => {
+                      const newPoint = map.current.project([offsetLng, offsetLat])
+                      el.style.left = `${newPoint.x - 16}px`
+                      el.style.top = `${newPoint.y - 41}px`
+                    }
+                    
+                    // Listen for map movements to update marker position
+                    map.current.on('move', updateMarkerPosition)
+                    map.current.on('zoom', updateMarkerPosition)
 
                     // Remove marker after animation completes
                     setTimeout(() => {
                       console.log("Removing marker")
-                      marker.remove()
+                      map.current.off('move', updateMarkerPosition)
+                      map.current.off('zoom', updateMarkerPosition)
+                      if (el.parentNode) {
+                        el.parentNode.removeChild(el)
+                      }
                     }, 6000)
                   } catch (error) {
                     console.error("Error creating marker:", error)
