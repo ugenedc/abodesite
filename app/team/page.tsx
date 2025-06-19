@@ -16,7 +16,7 @@ export default function TeamPage() {
       linkedin: "#",
       twitter: "#",
       email: "sarah@abode.com",
-      gradient: "from-purple-400 to-purple-500",
+      gradient: "from-purple-400/80 to-purple-500/80",
       delay: 0
     },
     {
@@ -27,7 +27,7 @@ export default function TeamPage() {
       linkedin: "#",
       twitter: "#",
       email: "marcus@abode.com",
-      gradient: "from-purple-500 to-orange-400",
+      gradient: "from-purple-500/80 to-orange-400/80",
       delay: 200
     },
     {
@@ -38,7 +38,7 @@ export default function TeamPage() {
       linkedin: "#",
       twitter: "#",
       email: "emily@abode.com",
-      gradient: "from-orange-400 to-orange-500",
+      gradient: "from-orange-400/80 to-orange-500/80",
       delay: 400
     },
     {
@@ -49,7 +49,7 @@ export default function TeamPage() {
       linkedin: "#",
       twitter: "#",
       email: "david@abode.com",
-      gradient: "from-purple-400 to-purple-600",
+      gradient: "from-purple-400/80 to-purple-600/80",
       delay: 100
     },
     {
@@ -60,7 +60,7 @@ export default function TeamPage() {
       linkedin: "#",
       twitter: "#",
       email: "jessica@abode.com",
-      gradient: "from-purple-600 to-orange-400",
+      gradient: "from-purple-600/80 to-orange-400/80",
       delay: 300
     },
     {
@@ -71,7 +71,7 @@ export default function TeamPage() {
       linkedin: "#",
       twitter: "#",
       email: "alex@abode.com",
-      gradient: "from-orange-400 to-orange-600",
+      gradient: "from-orange-400/80 to-orange-600/80",
       delay: 500
     }
   ]
