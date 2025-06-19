@@ -98,12 +98,17 @@ export default function MapCanvas({
           }
 
           if (animateMarkers) {
+            console.log("Starting animated markers...")
             // Start markers after fade-in
             setTimeout(() => {
+              console.log("Marker interval starting...")
               markerInterval.current = setInterval(() => {
+                console.log("Creating new marker...")
                 const bounds = map.current.getBounds()
                 const lng = Math.random() * (bounds.getEast() - bounds.getWest()) + bounds.getWest()
                 const lat = Math.random() * (bounds.getNorth() - bounds.getSouth()) + bounds.getSouth()
+
+                console.log(`Marker position: [${lng}, ${lat}]`)
 
                 // Random color from brand palette
                 const colors = [
@@ -118,8 +123,10 @@ export default function MapCanvas({
                 // Create custom SVG marker element
                 const el = document.createElement("div")
                 el.className = "location-marker-animated"
+                el.style.position = "relative"
+                el.style.zIndex = "1000"
                 el.innerHTML = `
-                  <svg width="24" height="31" viewBox="0 0 62.3 80.6" xmlns="http://www.w3.org/2000/svg">
+                  <svg width="32" height="41" viewBox="0 0 62.3 80.6" xmlns="http://www.w3.org/2000/svg" style="display: block;">
                     <defs>
                       <style>
                         .marker-fill { fill: ${randomColor}; }
@@ -131,17 +138,24 @@ export default function MapCanvas({
                   </svg>
                 `
 
-                const marker = new window.mapboxgl.Marker({
-                  element: el,
-                  anchor: 'bottom' // Anchor to bottom so it sits properly on the map
-                }).setLngLat([lng, lat]).addTo(map.current)
+                try {
+                  const marker = new window.mapboxgl.Marker({
+                    element: el,
+                    anchor: 'bottom' // Anchor to bottom so it sits properly on the map
+                  }).setLngLat([lng, lat]).addTo(map.current)
 
-                // Remove marker after animation completes
-                setTimeout(() => {
-                  marker.remove()
-                }, 5000)
-              }, 1500) // Spawn every 1.5 seconds
-            }, 4000) // Start markers after fade completes
+                  console.log("Marker created and added to map")
+
+                  // Remove marker after animation completes
+                  setTimeout(() => {
+                    console.log("Removing marker")
+                    marker.remove()
+                  }, 6000)
+                } catch (error) {
+                  console.error("Error creating marker:", error)
+                }
+              }, 2000) // Spawn every 2 seconds
+            }, 2000) // Start markers after 2 seconds
           }
         })
 
