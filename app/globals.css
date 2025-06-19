@@ -354,6 +354,23 @@ select:focus {
   }
 }
 
+/* Mobile menu improvements */
+.mobile-menu-open {
+  overflow: hidden;
+}
+
+/* Ensure mobile menu is above everything */
+.mobile-menu {
+  z-index: 9999;
+}
+
+/* Smooth mobile menu animations */
+@media (max-width: 768px) {
+  .mobile-menu-slide {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
 /* Hide any remaining Mapbox attribution/watermarks */
 .mapboxgl-ctrl-attrib,
 .mapboxgl-ctrl-logo,

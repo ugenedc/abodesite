@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import {
   ArrowRight,
   Menu,
+  X,
   Mail,
   Phone,
   MapPin,
@@ -20,6 +21,7 @@ import WaitlistForm from "@/components/waitlist-form"
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const pathname = usePathname()
   const isStudio = pathname.startsWith('/studio')
 
@@ -38,6 +40,20 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
 
     return () => window.removeEventListener("scroll", handleScroll)
   }, [pathname, isStudio])
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isMobileMenuOpen])
 
   if (isStudio) {
     return <>{children}</>
@@ -70,6 +86,13 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
     } else {
       window.location.href = `/#${sectionId}`
     }
+    // Close mobile menu after navigation
+    setIsMobileMenuOpen(false)
+  }
+
+  const scrollToContactMobile = () => {
+    scrollToContact()
+    setIsMobileMenuOpen(false)
   }
 
   return (
@@ -146,13 +169,117 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
             <Button
               variant="ghost"
               size="icon"
-              className={`md:hidden rounded-full transition-all duration-300 ${navText}`}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className={`md:hidden rounded-full transition-all duration-300 ${navText} z-60`}
             >
-              <Menu className="h-5 w-5" />
+              {isMobileMenuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
             </Button>
           </div>
         </div>
       </header>
+
+      {/* Mobile Menu Overlay */}
+      <div className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${
+        isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+      }`}>
+        {/* Background Overlay */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-br from-purple-900/95 via-purple-800/95 to-orange-800/95 backdrop-blur-lg"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+        
+        {/* Menu Content */}
+        <div className={`absolute top-0 right-0 h-full w-80 max-w-[85vw] bg-gradient-to-b from-white/95 to-gray-50/95 backdrop-blur-xl shadow-2xl transform transition-transform duration-300 ${
+          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}>
+          {/* Menu Header */}
+          <div className="p-8 border-b border-gray-200/50">
+            <div className="flex items-center justify-between">
+              <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
+                <Image
+                  src="/logo-color.svg"
+                  alt="Abode Logo"
+                  width={120}
+                  height={32}
+                  className="object-contain"
+                />
+              </Link>
+            </div>
+          </div>
+
+          {/* Navigation Links */}
+          <nav className="p-8 space-y-6">
+            <button
+              onClick={() => navigateToSection("features")}
+              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light group"
+            >
+              <span className="w-2 h-2 bg-purple-400 rounded-full mr-4 group-hover:scale-125 transition-transform duration-200"></span>
+              Features
+            </button>
+            
+            <button
+              onClick={() => navigateToSection("solutions")}
+              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light group"
+            >
+              <span className="w-2 h-2 bg-purple-500 rounded-full mr-4 group-hover:scale-125 transition-transform duration-200"></span>
+              Solutions
+            </button>
+            
+            <button
+              onClick={() => navigateToSection("pricing")}
+              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light group"
+            >
+              <span className="w-2 h-2 bg-orange-400 rounded-full mr-4 group-hover:scale-125 transition-transform duration-200"></span>
+              Pricing
+            </button>
+            
+            <Link
+              href="/team"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light group"
+            >
+              <span className="w-2 h-2 bg-orange-500 rounded-full mr-4 group-hover:scale-125 transition-transform duration-200"></span>
+              Team
+            </Link>
+            
+            <Link
+              href="/blog"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light group"
+            >
+              <span className="w-2 h-2 bg-purple-600 rounded-full mr-4 group-hover:scale-125 transition-transform duration-200"></span>
+              Blog
+            </Link>
+            
+            <button
+              onClick={scrollToContactMobile}
+              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light group"
+            >
+              <span className="w-2 h-2 bg-orange-600 rounded-full mr-4 group-hover:scale-125 transition-transform duration-200"></span>
+              Contact
+            </button>
+          </nav>
+
+          {/* CTA Section */}
+          <div className="absolute bottom-8 left-8 right-8">
+            <div className="bg-gradient-to-r from-purple-400 to-orange-400 rounded-2xl p-6 text-white">
+              <h3 className="text-lg font-medium mb-2">Ready to get started?</h3>
+              <p className="text-white/90 text-sm mb-4 font-light">Join the waitlist for early access.</p>
+              <Button
+                onClick={scrollToContactMobile}
+                className="w-full bg-white hover:bg-white/90 text-purple-600 rounded-xl font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
+              >
+                Join Waitlist
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Add top padding equal to nav height (h-20 = 5rem = 80px) */}
       <main>{children}</main>
