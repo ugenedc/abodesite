@@ -20,7 +20,7 @@ export default function AnimatedHero() {
       // Create mailto link with the email address
       const subject = encodeURIComponent("New Waitlist Signup")
       const body = encodeURIComponent(`New signup for the Abode waitlist: ${email}`)
-      const mailtoLink = `mailto:leon@leonhayes.com.au?subject=${subject}&body=${body}`
+      const mailtoLink = `mailto:ugenedc@gmail.com?subject=${subject}&body=${body}`
 
       // Open email client
       window.location.href = mailtoLink

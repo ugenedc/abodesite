@@ -474,7 +474,7 @@ export default function HomePage() {
                     </div>
                     <div>
                       <h4 className="text-lg font-medium text-gray-900 mb-2">Email us</h4>
-                      <p className="text-gray-600 font-light">leon@leonhayes.com.au</p>
+                      <p className="text-gray-600 font-light">ugenedc@gmail.com</p>
                     </div>
                   </div>
 
