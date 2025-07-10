@@ -2,12 +2,24 @@
 
 import { ArrowLeft, Linkedin, Mail, Twitter } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import ScrollSection from "@/components/scroll-section"
 
 export default function TeamPage() {
   const teamMembers = [
+    {
+      name: "Leon Hayes",
+      title: "Founder & CEO, Abode AI",
+      description: "Leon Hayes is a serial entrepreneur and technology visionary with a passion for transforming the real estate experience. As the founder and CEO of Abode AI, Leon brings decades of experience across property, technology, and venture building to reimagine how homes are managed and lived in. With a sharp eye for inefficiencies in traditional property management, Leon set out to build a platform that empowers landlords, tenants, and property managers through automation, AI, and world-class user experience.",
+      photo: "/LeonPhoto.jpg",
+      linkedin: "#",
+      twitter: "#",
+      email: "leon@abode.com",
+      gradient: "from-purple-500/80 to-purple-600/80",
+      delay: 0
+    },
     {
       name: "Sarah Chen",
       title: "CEO & Co-Founder",
@@ -17,7 +29,7 @@ export default function TeamPage() {
       twitter: "#",
       email: "sarah@abode.com",
       gradient: "from-purple-400/80 to-purple-500/80",
-      delay: 0
+      delay: 100
     },
     {
       name: "Marcus Rodriguez",
@@ -39,7 +51,7 @@ export default function TeamPage() {
       twitter: "#",
       email: "emily@abode.com",
       gradient: "from-orange-400/80 to-orange-500/80",
-      delay: 400
+      delay: 300
     },
     {
       name: "David Kim",
@@ -50,7 +62,7 @@ export default function TeamPage() {
       twitter: "#",
       email: "david@abode.com",
       gradient: "from-purple-400/80 to-purple-600/80",
-      delay: 100
+      delay: 400
     },
     {
       name: "Jessica Park",
@@ -61,7 +73,7 @@ export default function TeamPage() {
       twitter: "#",
       email: "jessica@abode.com",
       gradient: "from-purple-600/80 to-orange-400/80",
-      delay: 300
+      delay: 500
     },
     {
       name: "Alex Thompson",
@@ -72,7 +84,7 @@ export default function TeamPage() {
       twitter: "#",
       email: "alex@abode.com",
       gradient: "from-orange-400/80 to-orange-600/80",
-      delay: 500
+      delay: 600
     }
   ]
 
@@ -119,13 +131,25 @@ export default function TeamPage() {
                     <div className="relative h-80 overflow-hidden rounded-t-3xl">
                       <div className={`absolute inset-0 bg-gradient-to-br ${member.gradient} group-hover:scale-105 transition-transform duration-700`}></div>
                       
-                      {/* Avatar with Initials */}
+                      {/* Avatar with Photo or Initials */}
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-32 h-32 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border-4 border-white/30 group-hover:scale-110 transition-transform duration-500">
-                          <span className="text-4xl font-light text-white drop-shadow-lg">
-                            {member.initials}
-                          </span>
-                        </div>
+                        {member.photo ? (
+                          <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white/30 group-hover:scale-110 transition-transform duration-500">
+                            <Image
+                              src={member.photo}
+                              alt={member.name}
+                              width={128}
+                              height={128}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        ) : (
+                          <div className="w-32 h-32 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border-4 border-white/30 group-hover:scale-110 transition-transform duration-500">
+                            <span className="text-4xl font-light text-white drop-shadow-lg">
+                              {member.initials}
+                            </span>
+                          </div>
+                        )}
                       </div>
                       
                       {/* Floating particles for visual interest */}
