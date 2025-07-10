@@ -44,10 +44,6 @@ export default function AnimatedHero() {
       </div>
       <div className="relative z-10 container mx-auto px-8 text-center">
         <div className="max-w-4xl mx-auto">
-          <Badge className="mb-6 inline-block bg-white/20 text-white border-white/20 rounded-full px-4 py-1 backdrop-blur-sm">
-            Coming Soon - Property Management Reimagined
-          </Badge>
-
           <h1 className="text-5xl md:text-7xl font-serif font-medium mb-8 leading-tight tracking-wide text-white drop-shadow-lg">
             The Future of Property Management
             <br />

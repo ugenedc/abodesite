@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowLeft, Linkedin, Mail, Twitter } from "lucide-react"
+import { ArrowLeft, Linkedin, Mail } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
@@ -14,8 +14,7 @@ export default function TeamPage() {
       title: "Founder & CEO, Abode AI",
       description: "Leon Hayes is a serial entrepreneur and technology visionary with a passion for transforming the real estate experience. As the founder and CEO of Abode AI, Leon brings decades of experience across property, technology, and venture building to reimagine how homes are managed and lived in. With a sharp eye for inefficiencies in traditional property management, Leon set out to build a platform that empowers landlords, tenants, and property managers through automation, AI, and world-class user experience.",
       photo: "/LeonPhoto.jpg",
-      linkedin: "#",
-      twitter: "#",
+      linkedin: "https://www.linkedin.com/in/leonnhayes/",
       email: "leon@abode.com",
       gradient: "from-purple-500/80 to-purple-600/80",
       delay: 0
@@ -26,7 +25,6 @@ export default function TeamPage() {
       description: "Former VP of Product at PropTech unicorn. Stanford MBA with 12+ years revolutionizing real estate technology. Passionate about creating seamless experiences.",
       initials: "SC",
       linkedin: "#",
-      twitter: "#",
       email: "sarah@abode.com",
       gradient: "from-purple-400/80 to-purple-500/80",
       delay: 100
@@ -37,7 +35,6 @@ export default function TeamPage() {
       description: "Ex-Google Senior Engineer with expertise in scalable systems. MIT Computer Science. Led engineering teams building products used by millions worldwide.",
       initials: "MR",
       linkedin: "#",
-      twitter: "#",
       email: "marcus@abode.com",
       gradient: "from-purple-500/80 to-orange-400/80",
       delay: 200
@@ -48,7 +45,6 @@ export default function TeamPage() {
       description: "Award-winning UX designer from Airbnb. Specializes in creating intuitive interfaces that delight users. 8+ years crafting beautiful digital experiences.",
       initials: "EW",
       linkedin: "#",
-      twitter: "#",
       email: "emily@abode.com",
       gradient: "from-orange-400/80 to-orange-500/80",
       delay: 300
@@ -59,7 +55,6 @@ export default function TeamPage() {
       description: "Full-stack architect with deep PropTech experience. Previously at Zillow and Compass. Expert in building robust, scalable platforms for real estate.",
       initials: "DK",
       linkedin: "#",
-      twitter: "#",
       email: "david@abode.com",
       gradient: "from-purple-400/80 to-purple-600/80",
       delay: 400
@@ -70,7 +65,6 @@ export default function TeamPage() {
       description: "Growth marketing expert from Stripe. Data-driven strategist who helped scale multiple B2B SaaS companies from startup to IPO. UCLA MBA.",
       initials: "JP",
       linkedin: "#",
-      twitter: "#",
       email: "jessica@abode.com",
       gradient: "from-purple-600/80 to-orange-400/80",
       delay: 500
@@ -81,7 +75,6 @@ export default function TeamPage() {
       description: "Property management veteran with 15+ years in the industry. Former operations director at major property management firm. Customer-obsessed leader.",
       initials: "AT",
       linkedin: "#",
-      twitter: "#",
       email: "alex@abode.com",
       gradient: "from-orange-400/80 to-orange-600/80",
       delay: 600
@@ -129,28 +122,26 @@ export default function TeamPage() {
                   <CardContent className="p-0 team-card-content rounded-3xl overflow-hidden">
                     {/* Avatar Container */}
                     <div className="relative h-80 overflow-hidden rounded-t-3xl">
-                      <div className={`absolute inset-0 bg-gradient-to-br ${member.gradient} group-hover:scale-105 transition-transform duration-700`}></div>
-                      
-                      {/* Avatar with Photo or Initials */}
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        {member.photo ? (
-                          <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white/30 group-hover:scale-110 transition-transform duration-500">
-                            <Image
-                              src={member.photo}
-                              alt={member.name}
-                              width={128}
-                              height={128}
-                              className="w-full h-full object-cover"
-                            />
+                      {member.photo ? (
+                        <Image
+                          src={member.photo}
+                          alt={member.name}
+                          fill
+                          className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                          style={{ objectPosition: 'center 20%' }}
+                        />
+                      ) : (
+                        <>
+                          <div className={`absolute inset-0 bg-gradient-to-br ${member.gradient} group-hover:scale-105 transition-transform duration-700`}></div>
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="w-32 h-32 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border-4 border-white/30 group-hover:scale-110 transition-transform duration-500">
+                              <span className="text-4xl font-light text-white drop-shadow-lg">
+                                {member.initials}
+                              </span>
+                            </div>
                           </div>
-                        ) : (
-                          <div className="w-32 h-32 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border-4 border-white/30 group-hover:scale-110 transition-transform duration-500">
-                            <span className="text-4xl font-light text-white drop-shadow-lg">
-                              {member.initials}
-                            </span>
-                          </div>
-                        )}
-                      </div>
+                        </>
+                      )}
                       
                       {/* Floating particles for visual interest */}
                       <div className="absolute top-6 left-6 w-4 h-4 bg-white/30 rounded-full animate-float"></div>
@@ -165,18 +156,8 @@ export default function TeamPage() {
                            className="w-10 h-10 bg-white/90 backdrop-blur-sm text-gray-500 hover:text-purple-500 hover:bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
                            asChild
                          >
-                           <Link href={member.linkedin}>
+                           <Link href={member.linkedin} target="_blank" rel="noopener noreferrer">
                              <Linkedin className="w-4 h-4 team-social-icon" />
-                           </Link>
-                         </Button>
-                         <Button
-                           size="icon"
-                           variant="ghost"
-                           className="w-10 h-10 bg-white/90 backdrop-blur-sm text-gray-500 hover:text-blue-500 hover:bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-                           asChild
-                         >
-                           <Link href={member.twitter}>
-                             <Twitter className="w-4 h-4 team-social-icon" />
                            </Link>
                          </Button>
                          <Button
