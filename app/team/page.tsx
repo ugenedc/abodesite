@@ -18,66 +18,6 @@ export default function TeamPage() {
       email: "leon@abode.com",
       gradient: "from-purple-500/80 to-purple-600/80",
       delay: 0
-    },
-    {
-      name: "Sarah Chen",
-      title: "CEO & Co-Founder",
-      description: "Former VP of Product at PropTech unicorn. Stanford MBA with 12+ years revolutionizing real estate technology. Passionate about creating seamless experiences.",
-      initials: "SC",
-      linkedin: "#",
-      email: "sarah@abode.com",
-      gradient: "from-purple-400/80 to-purple-500/80",
-      delay: 100
-    },
-    {
-      name: "Marcus Rodriguez",
-      title: "CTO & Co-Founder",
-      description: "Ex-Google Senior Engineer with expertise in scalable systems. MIT Computer Science. Led engineering teams building products used by millions worldwide.",
-      initials: "MR",
-      linkedin: "#",
-      email: "marcus@abode.com",
-      gradient: "from-purple-500/80 to-orange-400/80",
-      delay: 200
-    },
-    {
-      name: "Emily Watson",
-      title: "Head of Design",
-      description: "Award-winning UX designer from Airbnb. Specializes in creating intuitive interfaces that delight users. 8+ years crafting beautiful digital experiences.",
-      initials: "EW",
-      linkedin: "#",
-      email: "emily@abode.com",
-      gradient: "from-orange-400/80 to-orange-500/80",
-      delay: 300
-    },
-    {
-      name: "David Kim",
-      title: "VP of Engineering",
-      description: "Full-stack architect with deep PropTech experience. Previously at Zillow and Compass. Expert in building robust, scalable platforms for real estate.",
-      initials: "DK",
-      linkedin: "#",
-      email: "david@abode.com",
-      gradient: "from-purple-400/80 to-purple-600/80",
-      delay: 400
-    },
-    {
-      name: "Jessica Park",
-      title: "Head of Growth",
-      description: "Growth marketing expert from Stripe. Data-driven strategist who helped scale multiple B2B SaaS companies from startup to IPO. UCLA MBA.",
-      initials: "JP",
-      linkedin: "#",
-      email: "jessica@abode.com",
-      gradient: "from-purple-600/80 to-orange-400/80",
-      delay: 500
-    },
-    {
-      name: "Alex Thompson",
-      title: "Head of Customer Success",
-      description: "Property management veteran with 15+ years in the industry. Former operations director at major property management firm. Customer-obsessed leader.",
-      initials: "AT",
-      linkedin: "#",
-      email: "alex@abode.com",
-      gradient: "from-orange-400/80 to-orange-600/80",
-      delay: 600
     }
   ]
 
@@ -115,7 +55,7 @@ export default function TeamPage() {
       {/* Team Grid */}
       <section className="py-32 bg-white">
         <div className="container mx-auto px-8">
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-12 max-w-7xl mx-auto">
+          <div className="flex justify-center max-w-7xl mx-auto">
             {teamMembers.map((member, index) => (
               <ScrollSection key={index} delay={member.delay} blurAmount={3} fadeDirection="up">
                 <Card className="group team-card border-0 bg-white hover:bg-gray-50/50 transition-all duration-700 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transform hover:-translate-y-2">
