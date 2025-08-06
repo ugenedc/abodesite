@@ -44,7 +44,11 @@ export default function MapCanvas({
       console.log("Mapbox Token:", token ? `Token found (ends with ...${token.slice(-4)})` : "Token NOT found")
 
       if (!token) {
-        console.error("Mapbox token is not configured.")
+        console.error("Mapbox token is not configured. Using fallback background.")
+        // Set fallback background when no token is available
+        setTimeout(() => {
+          setIsFadedIn(true)
+        }, 1000)
         return
       }
 
@@ -136,6 +140,9 @@ export default function MapCanvas({
     }
   }, [interactive, style, animate, animateMarkers])
 
+  // Check if we have a Mapbox token
+  const hasMapboxToken = !!process.env.NEXT_PUBLIC_MAPBOX_TOKEN
+
   return (
     <div
       className={`absolute inset-0 ${className}`}
@@ -146,10 +153,46 @@ export default function MapCanvas({
         transition: "opacity 3000ms ease-in-out"
       }}
     >
-      <div
-        ref={mapContainer}
-        style={{ width: "100%", height: "100%" }}
-      />
+      {hasMapboxToken ? (
+        <div
+          ref={mapContainer}
+          style={{ width: "100%", height: "100%" }}
+        />
+      ) : (
+        // Beautiful fallback background when Mapbox is not configured
+        <div 
+          className="w-full h-full bg-gradient-to-br from-purple-900 via-purple-800 to-orange-800 relative overflow-hidden"
+          style={{ width: "100%", height: "100%" }}
+        >
+          {/* Animated background patterns */}
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-1/3 right-1/3 w-80 h-80 bg-orange-300 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+            <div className="absolute top-1/2 right-1/4 w-64 h-64 bg-purple-300 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+          </div>
+          
+          {/* Grid pattern overlay */}
+          <div 
+            className="absolute inset-0 opacity-10"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+              `,
+              backgroundSize: '60px 60px'
+            }}
+          ></div>
+          
+          {/* Subtle dots pattern */}
+          <div 
+            className="absolute inset-0 opacity-5"
+            style={{
+              backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)',
+              backgroundSize: '40px 40px'
+            }}
+          ></div>
+        </div>
+      )}
     </div>
   )
 } 
