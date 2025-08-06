@@ -1,4 +1,4 @@
-import { sanityClient } from '@/lib/sanity'
+import { sanityClient, isSanityConfigured } from '@/lib/sanity'
 import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 
@@ -12,14 +12,24 @@ interface Post {
 }
 
 async function getPosts() {
+  if (!isSanityConfigured) {
+    return [];
+  }
+  
   const query = `*[_type == "post"] {
     title,
     overview,
     _id,
     "slug": slug.current
   }`
-  const data = await sanityClient.fetch(query)
-  return data
+  
+  try {
+    const data = await sanityClient.fetch(query)
+    return data
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    return [];
+  }
 }
 
 export default async function BlogPage() {

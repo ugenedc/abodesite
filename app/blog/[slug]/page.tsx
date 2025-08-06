@@ -1,4 +1,4 @@
-import { sanityClient } from "@/lib/sanity";
+import { sanityClient, isSanityConfigured } from "@/lib/sanity";
 import { PortableText } from "@portabletext/react";
 import { VT323 } from "next/font/google";
 import Image from "next/image";
@@ -21,6 +21,10 @@ interface Post {
 }
 
 async function getPost(slug: string) {
+  if (!isSanityConfigured) {
+    return null;
+  }
+  
   const query = `*[_type == "post" && slug.current == "${slug}"][0] {
     title,
     _id,
@@ -29,8 +33,14 @@ async function getPost(slug: string) {
     body,
     mainImage
   }`;
-  const data = await sanityClient.fetch(query);
-  return data;
+  
+  try {
+    const data = await sanityClient.fetch(query);
+    return data;
+  } catch (error) {
+    console.error('Error fetching post:', error);
+    return null;
+  }
 }
 
 export default async function PostPage({ params }: { params: { slug: string } }) {

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
-import { CheckCircle, Loader2, Send } from "lucide-react"
+import { CheckCircle, Loader2, Send, AlertCircle } from "lucide-react"
 
 export default function ContactForm() {
   const [name, setName] = useState("")
@@ -13,43 +13,45 @@ export default function ContactForm() {
   const [message, setMessage] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [error, setError] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!name || !email || !message) return
 
     setIsSubmitting(true)
+    setError("")
     
     try {
-      // Create mailto link with the form data
-      const subject = encodeURIComponent("New Contact Form Submission - Abode")
-      const body = encodeURIComponent(`New contact form submission from Abode website:
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'contact',
+          name: name,
+          email: email,
+          message: message,
+        }),
+      })
 
-Name: ${name}
-Email: ${email}
-Message: ${message}
+      const result = await response.json()
 
-Timestamp: ${new Date().toISOString()}`)
-      
-      const mailtoLink = `mailto:ugenedc@gmail.com?subject=${subject}&body=${body}`
-      
-      // Small delay to show loading state
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      // Open email client
-      window.location.href = mailtoLink
-      
-      // Show success message
-      setIsSubmitted(true)
-      setName("")
-      setEmail("")
-      setMessage("")
-      
-      // Reset success message after 5 seconds
-      setTimeout(() => setIsSubmitted(false), 5000)
-      
+      if (response.ok) {
+        setIsSubmitted(true)
+        setName("")
+        setEmail("")
+        setMessage("")
+        
+        // Reset success message after 8 seconds
+        setTimeout(() => setIsSubmitted(false), 8000)
+      } else {
+        setError(result.error || 'Failed to send message')
+      }
     } catch (error) {
       console.error('Error submitting form:', error)
+      setError('Network error. Please try again.')
     } finally {
       setIsSubmitting(false)
     }
@@ -122,6 +124,13 @@ Timestamp: ${new Date().toISOString()}`)
               required
             />
           </div>
+          
+          {error && (
+            <div className="flex items-center space-x-2 p-4 bg-red-50 border border-red-200 rounded-xl">
+              <AlertCircle className="h-5 w-5 text-red-600" />
+              <span className="text-red-800">{error}</span>
+            </div>
+          )}
           
           <Button 
             type="submit" 
