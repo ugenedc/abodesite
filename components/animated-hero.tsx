@@ -56,11 +56,11 @@ export default function AnimatedHero() {
       </div>
       <div className="relative z-10 container mx-auto px-8 text-center">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-serif font-medium mb-8 leading-tight tracking-wide text-white drop-shadow-lg">
-            Property Management
-            <br />
-            <span className="text-white/90">Reimagined</span>
-          </h1>
+                              <h1 className="text-5xl md:text-7xl font-sans font-light mb-8 leading-tight tracking-wide text-white drop-shadow-lg">
+                      Property Management
+                      <br />
+                      <span className="text-white/90">Reimagined</span>
+                    </h1>
           
           <p className="text-xl md:text-2xl mb-12 text-white/90 max-w-3xl mx-auto leading-relaxed drop-shadow-md">
             Transform your property management experience with AI-powered insights, automated workflows, and seamless

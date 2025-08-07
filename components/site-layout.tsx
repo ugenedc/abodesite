@@ -119,37 +119,37 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
           <nav className="hidden md:flex items-center space-x-12">
             <button
               onClick={() => navigateToSection("features")}
-              className={`transition-all duration-300 ${navText}`}
+              className={`transition-all duration-300 font-medium text-sm tracking-wide hover:text-purple-500 ${navText}`}
             >
               Features
             </button>
             <button
               onClick={() => navigateToSection("solutions")}
-              className={`transition-all duration-300 ${navText}`}
+              className={`transition-all duration-300 font-medium text-sm tracking-wide hover:text-purple-500 ${navText}`}
             >
               Solutions
             </button>
             <button
               onClick={() => navigateToSection("pricing")}
-              className={`transition-all duration-300 ${navText}`}
+              className={`transition-all duration-300 font-medium text-sm tracking-wide hover:text-purple-500 ${navText}`}
             >
               Pricing
             </button>
             <Link
               href="/team"
-              className={`transition-all duration-300 ${navText} hover:text-purple-500`}
+              className={`transition-all duration-300 font-medium text-sm tracking-wide hover:text-purple-500 ${navText}`}
             >
               Team
             </Link>
             <Link
               href="/blog"
-              className={`transition-all duration-300 ${navText}`}
+              className={`transition-all duration-300 font-medium text-sm tracking-wide hover:text-purple-500 ${navText}`}
             >
               Blog
             </Link>
             <button
               onClick={scrollToContact}
-              className={`transition-all duration-300 ${navText}`}
+              className={`transition-all duration-300 font-medium text-sm tracking-wide hover:text-purple-500 ${navText}`}
             >
               Contact
             </button>
@@ -215,21 +215,21 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
           <nav className="p-8 space-y-6">
             <button
               onClick={() => navigateToSection("features")}
-              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light"
+              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-medium tracking-wide"
             >
               Features
             </button>
             
             <button
               onClick={() => navigateToSection("solutions")}
-              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light"
+              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-medium tracking-wide"
             >
               Solutions
             </button>
             
             <button
               onClick={() => navigateToSection("pricing")}
-              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light"
+              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-medium tracking-wide"
             >
               Pricing
             </button>
@@ -237,7 +237,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
             <Link
               href="/team"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light"
+              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-medium tracking-wide"
             >
               Team
             </Link>
@@ -245,14 +245,14 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
             <Link
               href="/blog"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light"
+              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-medium tracking-wide"
             >
               Blog
             </Link>
             
             <button
               onClick={scrollToContactMobile}
-              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-light"
+              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-medium tracking-wide"
             >
               Contact
             </button>
@@ -322,6 +322,42 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
           </ScrollSection>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-50 border-t border-gray-100 py-12">
+        <div className="container mx-auto px-8">
+          <div className="text-center space-y-4">
+            {/* Copyright and Address */}
+            <div className="space-y-2">
+              <p className="text-sm text-gray-600 font-light">
+                © Abode Technologies V2
+              </p>
+              <p className="text-sm text-gray-500 font-light">
+                371 MacArthur Ave, Hamilton QLD 4007
+              </p>
+              <p className="text-xs text-gray-400 font-light mt-3">
+                Abode, Abode AI and Abode Logo are the registered trademarks of Abode Technologies.
+              </p>
+            </div>
+            
+            {/* Separator */}
+            <div className="w-16 h-px bg-gray-300 mx-auto"></div>
+            
+            {/* Website Credit */}
+            <p className="text-xs text-gray-400 font-light">
+              Website by{" "}
+              <a 
+                href="https://haystack.com.au" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-purple-500 hover:text-purple-600 font-medium transition-colors duration-200"
+              >
+                Haystack
+              </a>
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 } 

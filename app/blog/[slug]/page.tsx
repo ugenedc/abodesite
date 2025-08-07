@@ -162,7 +162,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
             )}
 
             {/* Article content */}
-            <article className="prose prose-xl max-w-none">
+            <article className="prose prose-xl max-w-none font-light prose-headings:font-light prose-p:font-light prose-li:font-light">
               <div className="w-16 h-1 bg-gradient-to-r from-purple-400 to-orange-400 rounded-full mb-12"></div>
               
               <PortableText

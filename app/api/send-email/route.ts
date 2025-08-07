@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
       // Contact form email
       emailData = {
         from: 'Abode Website <onboarding@resend.dev>',
-        to: ['leon@haystack.com.au', 'eugene@themostvaluableproduct.com'],
+        to: ['eugene@themostvaluableproduct.com'],
         subject: 'New Contact Form Submission - Abode',
         html: `
           <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
       // Waitlist signup email
       emailData = {
         from: 'Abode Website <onboarding@resend.dev>',
-        to: ['leon@haystack.com.au', 'eugene@themostvaluableproduct.com'],
+        to: ['eugene@themostvaluableproduct.com'],
         subject: 'New Waitlist Signup - Abode',
         html: `
           <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
