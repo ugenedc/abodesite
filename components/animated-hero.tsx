@@ -77,22 +77,12 @@ export default function AnimatedHero() {
             />
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-12 text-white/90">
-            <div className="flex items-center">
-              <span className="text-3xl font-medium text-white mr-3 drop-shadow-md">1000+</span>
-              <span className="text-lg">Early Adopters</span>
-            </div>
-            <div className="hidden sm:block w-px h-8 bg-white/30" />
-            <div className="flex items-center">
-              <span className="text-3xl font-medium text-white mr-3 drop-shadow-md">Q2 2025</span>
-              <span className="text-lg">Launch</span>
-            </div>
-            <div className="hidden sm:block w-px h-8 bg-white/30" />
-            <div className="flex items-center">
-              <span className="text-3xl font-medium text-white mr-3 drop-shadow-md">Free</span>
-              <span className="text-lg">Early Access</span>
-            </div>
-          </div>
+                              <div className="flex items-center justify-center text-white/90">
+                      <div className="flex items-center">
+                        <span className="text-3xl font-medium text-white mr-3 drop-shadow-md">Oct 2025</span>
+                        <span className="text-lg">Beta Program Launch</span>
+                      </div>
+                    </div>
         </div>
       </div>
 

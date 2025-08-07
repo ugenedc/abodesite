@@ -136,6 +136,12 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
               Pricing
             </button>
             <Link
+              href="/about"
+              className={`transition-all duration-300 font-medium text-sm tracking-wide hover:text-purple-500 ${navText}`}
+            >
+              About
+            </Link>
+            <Link
               href="/team"
               className={`transition-all duration-300 font-medium text-sm tracking-wide hover:text-purple-500 ${navText}`}
             >
@@ -235,6 +241,14 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
             </button>
             
             <Link
+              href="/about"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-medium tracking-wide"
+            >
+              About
+            </Link>
+            
+            <Link
               href="/team"
               onClick={() => setIsMobileMenuOpen(false)}
               className="flex items-center w-full text-left text-gray-800 hover:text-purple-600 transition-colors duration-200 text-lg font-medium tracking-wide"
@@ -330,7 +344,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
             {/* Copyright and Address */}
             <div className="space-y-2">
               <p className="text-sm text-gray-600 font-light">
-                © Abode Technologies V2
+                © Abode Technologies
               </p>
               <p className="text-sm text-gray-500 font-light">
                 371 MacArthur Ave, Hamilton QLD 4007
